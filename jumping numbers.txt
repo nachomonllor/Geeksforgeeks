@@ -1,0 +1,48 @@
+﻿http://www.practice.geeksforgeeks.org/problem-page.php?pid=389
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static bool isJumping(int n)
+        {
+            List<int> digs = new List<int>();
+            int i = 0;
+            while (n > 0)
+            {
+                digs.Add(n % 10);
+
+                if (digs.Count > 1 && Math.Abs(digs[i] - digs[i - 1]) > 1)
+                {
+                    return false;
+                }
+                if (i + 1 < digs.Count && Math.Abs(digs[i] - digs[i + 1]) > 1)
+                {
+                    return false;
+                }
+                i++;
+                n /= 10;
+            }
+            return true;
+
+        }
+
+        static void Main(string[] args)
+        {
+            int[] arr = { 5, 10, 13, 20, 104, 345, 270, 27, 40, 45 };
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+
+
+            }
+
+            Console.ReadLine();
+        }
+    }
+}

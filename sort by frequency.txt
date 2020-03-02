@@ -1,0 +1,84 @@
+﻿http://www.practice.geeksforgeeks.org/problem-page.php?pid=493
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int[] arr = { 2, 3, 2, 4, 5, 12, 2, 3, 3, 3, 12 };
+
+            Dictionary<int, int> diccio = new Dictionary<int, int>();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (diccio.ContainsKey(arr[i]))
+                {
+                    diccio[arr[i]]++;
+                }
+                else
+                {
+                    diccio[arr[i]] = 1;
+                }
+            }
+
+            int[] elementos = new int[diccio.Count];
+            int[] veces = new int[diccio.Count];
+            int j = 0;
+            foreach (KeyValuePair<int, int> kvp in diccio)
+            {
+                elementos[j] = kvp.Key;
+                veces[j] = kvp.Value;
+                j++;
+            }
+
+
+
+            for (int i = 1; i < elementos.Length; i++)
+            {
+                int index = i;
+                while (index > 0 && veces[index] > veces[index - 1])
+                {
+                    int temp = elementos[index];
+                    elementos[index] = elementos[index - 1];
+                    elementos[index - 1] = temp;
+
+                    int temp2 = veces[index];
+                    veces[index] = veces[index - 1];
+                    veces[index - 1] = temp2;
+                    index--;
+                
+                }
+
+            }
+
+            for (int i = 0; i < diccio.Count; i++)
+            {
+                Console.Write(elementos[i] + " ");
+                Console.Write(veces[i] + " ");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+
+            for (int i = 0; i < diccio.Count; i++)
+            {
+                for ( j = 0; j < veces[i]; j++)
+                {
+                    Console.Write(elementos[i] + " ");
+                }
+
+            }
+
+            Console.ReadLine();
+        }
+    }
+}
+

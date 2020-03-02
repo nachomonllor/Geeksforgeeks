@@ -1,0 +1,180 @@
+﻿http://practice.geeksforgeeks.org/problems/fibonacci-in-the-array/0
+
+
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javaapplication250;
+
+import java.io.*;
+import java.math.*;
+import java.util.*;
+
+
+/**
+ *
+ * @author Administrador
+ */
+public class JavaApplication250 {
+
+   
+    
+    
+    public static void main(String[] args) throws IOException {
+        // TODO code application logic here
+        
+        int[] fib = { 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946 };
+
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
+        
+        int t = Integer.parseInt(br.readLine());
+        
+         
+        /*
+        for(int i =0; i<fib.length; i++) {
+            System.out.println(fib[i]+ ", ");
+        }*/
+        
+        while(t-- > 0) {
+           int n = Integer.parseInt(br.readLine());
+           String[] input = br.readLine().trim().split(" ");
+           
+            
+           HashSet<Integer> hs = new HashSet();
+           for(int i =0; i<n; i++) {
+               hs.add(Integer.parseInt(input[i]));
+           }
+           
+           int[] a = new int[hs.size()];
+           int i =0;
+           for(int elem: hs) {
+               a[i] = elem;
+               i++;
+           }
+           
+           int [] cont = new int[11000];
+           
+           for(  i =0; i<fib.length; i++)  {
+               cont[fib[i]]++;
+           }
+           /*
+           for(int i =0; i<cont.length; i++) {
+               if(cont[i] > 0)
+               System.out.print(i+" "+ cont[i] + " ");
+           }*/
+           
+           for(  i =0; i<n; i++) {
+               cont[a[i]]++;
+           }
+           
+           int ans =0;
+           for(  i =0; i<cont.length; i++) {
+               if(cont[i] >1) {
+                   ans++;
+               }
+           }
+           
+          System.out.println(ans);
+           
+           
+        }
+        
+    }
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javaapplication250;
+
+import java.io.*;
+import java.math.*;
+import java.util.*;
+
+
+/**
+ *
+ * @author Administrador
+ */
+public class JavaApplication250 {
+
+   
+    
+    
+    public static void main(String[] args) throws IOException {
+        // TODO code application logic here
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
+        
+        int t = Integer.parseInt(br.readLine());
+        
+        ArrayList<Integer> fib = new ArrayList();
+        fib.add(1);
+        fib.add(1);
+        for(int i=2;  fib.get(i-1) < 10001; i++ ) {
+            fib.add(fib.get(i-1) + fib.get(i-2));
+        }
+        
+        for(int i =0; i<fib.size(); i++) {
+            System.out.println(fib.get(i));
+        }
+        
+        while(t-- > 0) {
+           int n = Integer.parseInt(br.readLine());
+           String[] input = br.readLine().trim().split(" ");
+           int[] a = new int[n];
+           int max =0;
+           for(int i =0; i<n; i++) {
+               a[i] = Integer.parseInt(input[i]);
+               max = Math.max(max, a[i]);
+           }
+           
+           int [] cont = new int[11000];
+           
+           for(int i =1; i<fib.size(); i++)  {
+               cont[fib.get(i)]++;
+           }
+           /*
+           for(int i =0; i<cont.length; i++) {
+               if(cont[i] > 0)
+               System.out.print(i+" "+ cont[i] + " ");
+           }*/
+           
+           for(int i =0; i<n; i++) {
+               cont[a[i]]++;
+           }
+           
+           int ans =0;
+           for(int i =0; i<cont.length; i++) {
+               if(cont[i] >1) {
+                   ans++;
+               }
+           }
+           
+           System.out.println(ans);
+           
+        }
+        
+    }
+    
+    
+}
