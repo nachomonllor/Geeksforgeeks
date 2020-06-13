@@ -1,0 +1,93 @@
+﻿https://practice.geeksforgeeks.org/problems/largest-even-number/0/
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication49
+{
+    class Program
+    {
+
+
+        static string GreaterEven(string num)
+        {
+
+
+		
+		/*
+			1. busco el num mas grande que se pueda formar ordenando el array de mayor a menor.
+			2. busco el primer par contando desde la derecha, si hay, lo saco de donde esta y lo inserto al final del array
+			3. lo retorno como string
+			
+		
+		*/
+
+            int n = num.Length;
+
+
+            char[] ch = num.ToCharArray();
+            Array.Sort(ch);
+            Array.Reverse(ch);
+
+            string concat = new string(ch);
+
+            int indicePrimerParDesdeIzquierda = -1;
+
+            bool contienePar = false;
+
+
+            int primerPar = -1;
+            for (int i = n - 1; i >= 0; i--)
+            {
+                if ((ch[i] - '0') % 2 == 0)
+                {
+                    indicePrimerParDesdeDerecha = i; //(desde derecha)
+                    contienePar = true;
+                    break;
+                }
+            }
+
+            if (!contienePar)
+            {
+                return new string(ch); 
+            }
+
+            primerPar = ch[indicePrimerParDesdeDerecha ] - '0';
+
+            List<int> lista = new List<int>();
+
+            for (int i = 0; i < n; i++)
+            {
+                lista.Add(ch[i] - '0');
+            }
+
+            lista.RemoveAt(indicePrimerParDesdeDerecha );
+            lista.Insert(lista.Count, primerPar);
+            // lista.Insert()
+
+            return   String.Join("", lista.ToArray() );
+
+        }
+      
+
+
+        static void Main(string[] args)
+        {
+
+
+            int t = int.Parse(Console.ReadLine());
+
+            while (t-- > 0)
+            {
+                string p = Console.ReadLine().Trim();
+                Console.WriteLine(GreaterEven(p.ToString()));
+            }
+
+            Console.ReadLine();
+        }
+
+    }
+}

@@ -1,0 +1,63 @@
+﻿https://practice.geeksforgeeks.org/problems/find-maximum-sum-strictly-increasing-subarray/0
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication49
+{
+    class Program
+    {
+
+
+
+        static int MaximumSumStrictlyIncreasingSubarray(int[] arr)
+        {
+            int sum = arr[0];
+            int anterior = arr[0];
+            int max_sum = 0;
+
+            for (int i = 1; i < arr.Length; i++)
+            {
+
+                if (arr[i] <= anterior)
+                {
+                    max_sum = Math.Max(max_sum, sum);
+                    sum = 0;
+                }
+                sum += arr[i];
+                anterior = arr[i];
+            }
+
+            return  Math.Max( max_sum , sum);
+
+        }
+
+        static void Main(string[] args)
+        {
+
+            int t = int.Parse(Console.ReadLine());
+
+            while (t-- > 0)
+            {
+
+                int n = int.Parse(Console.ReadLine().Trim());
+                int[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), e => int.Parse(e));
+
+                Console.WriteLine(MaximumSumStrictlyIncreasingSubarray(arr));
+
+            }
+
+
+            //int[] arr = { 1, 2, 3, 2, 5, 1, 7 };
+            //Console.WriteLine(MaximumSumStrictlyIncreasingSubarray(arr));
+
+
+
+            Console.ReadLine();
+        }
+
+    }
+}
