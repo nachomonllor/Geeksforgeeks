@@ -1,0 +1,69 @@
+﻿https://practice.geeksforgeeks.org/problems/inverse-permutation/0
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication48
+{
+    class Program
+    {
+
+
+
+        public static void InvPermutation(int[] arr )
+        {
+            int[] permut = new int[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+               
+                permut[arr[i] - 1] = i + 1;
+            }
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write(permut[i] + " ");
+            }
+            Console.WriteLine();
+            
+        }
+
+
+        public static void Main(String[] args)
+        {
+
+            //int[] arr = { 2, 3, 4, 5, 1 };
+
+            //InvPermutation(arr);
+
+            ////for (int i = 0; i < arr.Length; i++)
+            ////{
+            ////    Console.Write(arr[i] + " ");
+            ////}
+
+            int t = int.Parse(Console.ReadLine());
+
+            while (t-- > 0)
+            {
+                int n = int.Parse(Console.ReadLine().Trim());
+
+                int[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), e => int.Parse(e));
+
+                InvPermutation(arr);
+
+
+            }
+                
+
+
+
+            Console.ReadLine();
+
+
+        }
+
+
+    }
+}

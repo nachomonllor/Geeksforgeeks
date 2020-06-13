@@ -1,0 +1,49 @@
+﻿https://practice.geeksforgeeks.org/problems/distinct-absolute-array-elements/0
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication49
+{
+    class Program
+    {
+
+        public static int ObtainDistinctAbsulutes(int[] arr)
+        {
+
+            HashSet<int> hash = new HashSet<int>();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                hash.Add(Math.Abs(arr[i]));
+            }
+
+            return hash.Count;
+
+        }
+
+        static void Main(string[] args)
+        {
+
+            int t = int.Parse(Console.ReadLine());
+
+            while (t-- > 0)
+            {
+                int n = int.Parse(Console.ReadLine().Trim());
+                int[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), e => int.Parse(e));
+
+                Console.WriteLine(ObtainDistinctAbsulutes(arr));
+
+
+            }
+
+
+
+            Console.ReadLine();
+        }
+
+    }
+}
