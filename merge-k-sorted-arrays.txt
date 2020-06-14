@@ -1,0 +1,277 @@
+﻿https://practice.geeksforgeeks.org/problems/merge-k-sorted-arrays/1
+
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.util.*;
+import java.io.*;
+
+class GFG{
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t > 0){
+			int n = sc.nextInt();
+			int[][] a = new int[n][n];
+			for(int i = 0; i < n; i++)
+				for(int j = 0; j < n; j++)
+					a[i][j] = sc.nextInt();
+			Solution T = new Solution();
+			ArrayList<Integer> arr= T.mergeKArrays(a, n);
+			for(int i = 0; i < n*n ; i++)
+			    System.out.print(arr.get(i)+" ");
+		    System.out.println();
+		    
+		    t--;
+		}
+	}
+}
+
+// } Driver Code Ends
+
+
+//User function Template for Java
+
+/*Complete the function below*/
+class Solution{
+    static int[] MergeTwoSortedArrays(int[] a, int[] b)
+    {
+
+        int i = 0;
+        int j = 0;
+
+       // List<int> lista = new List<int>();
+        int[] mezcla = new int[a.length + b.length];
+        int k =0;
+
+        while (i < a.length && j < b.length)
+        {
+            if (a[i] < b[j])
+            {
+                //lista.Add(a[i]);
+                mezcla[k++] = a[i];
+                i++;
+            }
+            else
+            {
+                //lista.Add(b[j]);
+                mezcla[k++] = b[j];
+                j++;
+            }
+
+        }
+
+        while (i < a.length)
+        {
+            mezcla[k++] = a[i];
+            i++;
+        }
+        while (j < b.length)
+        {
+            mezcla[k++] = b[j];
+            j++;
+        }
+
+        return mezcla;
+
+    }
+
+
+
+      
+
+
+    public static ArrayList<Integer> mergeKArrays(int[][] arrays,int k) 
+    {
+        // Write your code here.
+
+
+        ArrayList<int[]> aux = new ArrayList ();
+        for (int i = 0; i < arrays.length; i++)
+        {
+            //aux.Add( new int[arrays[i].Length]);
+            aux.add( arrays[i]);
+        }
+
+
+        ArrayList<int[]> _mezclas = new ArrayList ();
+
+        while (aux.size() > 1)
+        {
+
+            int i;
+            for ( i = 0; i + 1 < aux.size(); i += 2)
+            {
+                int[] mezcla = MergeTwoSortedArrays(aux.get(i), aux.get(i + 1));
+                _mezclas.add(mezcla);
+            }
+            if (i < aux.size())
+            {
+                _mezclas.add(aux.get(aux.size() - 1));
+
+            }
+
+            aux = _mezclas;
+            _mezclas = new ArrayList<int[]>();
+        }
+
+        //return aux.get(0);
+        
+        int[] r = aux.get(0);
+        ArrayList<Integer> ans = new ArrayList();
+        
+        for(int i =0; i<r.length; i++) {
+            ans.add(r[i]);
+        }
+        
+        return ans;
+    }
+}
+
+
+
+------------------EN C# ------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication50
+{
+    class Program
+    {
+
+        static int[] MergeTwoSortedArrays(int[] a, int[] b)
+        {
+
+            int i = 0;
+            int j = 0;
+
+           // List<int> lista = new List<int>();
+            int[] mezcla = new int[a.Length + b.Length];
+            int k =0;
+
+            while (i < a.Length && j < b.Length)
+            {
+                if (a[i] < b[j])
+                {
+                    //lista.Add(a[i]);
+                    mezcla[k++] = a[i];
+                    i++;
+                }
+                else
+                {
+                    //lista.Add(b[j]);
+                    mezcla[k++] = b[j];
+                    j++;
+                }
+
+            }
+
+            while (i < a.Length)
+            {
+                mezcla[k++] = a[i];
+                i++;
+            }
+            while (j < b.Length)
+            {
+                mezcla[k++] = b[j];
+                j++;
+            }
+
+            return mezcla;
+
+        }
+
+
+
+      
+
+
+        public static int[] mergeKArrays(int[][] arrays, int k)
+        {
+            // Write your code here.
+
+
+            List<int[]> aux = new List<int[]>();
+            for (int i = 0; i < arrays.Length; i++)
+            {
+                //aux.Add( new int[arrays[i].Length]);
+                aux.Add( arrays[i]);
+            }
+
+
+            List<int[]> _mezclas = new List<int[]>();
+
+            while (aux.Count > 1)
+            {
+
+                int i;
+                for ( i = 0; i + 1 < aux.Count; i += 2)
+                {
+                    int[] mezcla = MergeTwoSortedArrays(aux[i], aux[i + 1]);
+                    _mezclas.Add(mezcla);
+                }
+                if (i < aux.Count)
+                {
+                    _mezclas.Add(aux[aux.Count - 1]);
+
+                }
+
+                aux = _mezclas;
+                _mezclas = new List<int[]>();
+            }
+
+            return aux[0];
+
+        }
+
+
+        static void Main(string[] args)
+        {
+
+            int[] a = new int[] { 1, 3, 5, 7, 9 };
+            int[] b = new int[] { 2, 4, 6, 8 };
+            int[] c = new int[] { 1, 4, 5, 6 };
+            int[] d = new int[] { 1, 4, 5, 6 };
+
+
+            int[][] matriz = new int[4][];
+            matriz[0] = a;
+            matriz[1] = b;
+            matriz[2] = c;
+            matriz[3] = d;
+
+            int[] m = mergeKArrays(matriz, 4);
+
+
+           // int[] a = new int[] { 1, 3, 5, 7, 9 };
+           // int[] b = new int[] { 2, 4, 6, 8 };
+           // int[] c = new int[] { 1, 4, 5, 6 };
+           //// int[] d = new int[] { 1, 4, 5, 6 };
+
+
+           // int[][] matriz = new int[3][];
+           // matriz[0] = a;
+           // matriz[1] = b;
+           // matriz[2] = c;
+           // //matriz[3] = d;
+
+           // int[] m = mergeKArrays(matriz, 3);
+
+
+            for (int i = 0; i < m.Length; i++)
+            {
+                Console.Write(m[i] + " ");
+            }
+
+
+            Console.ReadLine();
+        }
+
+
+    }
+}
+

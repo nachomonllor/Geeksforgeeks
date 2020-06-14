@@ -1,0 +1,51 @@
+﻿https://practice.geeksforgeeks.org/problems/largest-even-number/0/
+
+static long GreaterEven(string num)
+        {
+
+            int n = num.Length;
+
+
+            char[] ch = num.ToCharArray();
+            Array.Sort(ch);
+            Array.Reverse(ch);
+
+            string concat = new string(ch);
+
+            int indicePrimerParDesdeIzquierda = -1;
+
+            bool contienePar = false;
+
+
+            int primerPar = -1;
+            for (int i = n - 1; i >= 0; i--)
+            {
+                if ((ch[i] - '0') % 2 == 0)
+                {
+                    indicePrimerParDesdeIzquierda = i;
+                    contienePar = true;
+                    break;
+                }
+            }
+
+            if (!contienePar)
+            {
+                return long.Parse(new string(ch)); 
+            }
+
+            primerPar = ch[indicePrimerParDesdeIzquierda] - '0';
+
+            List<int> lista = new List<int>();
+
+            for (int i = 0; i < n; i++)
+            {
+                lista.Add(ch[i] - '0');
+            }
+
+            lista.RemoveAt(indicePrimerParDesdeIzquierda);
+            lista.Insert(lista.Count, primerPar);
+            // lista.Insert()
+
+            return long.Parse( String.Join("", lista.ToArray()));
+
+        }
