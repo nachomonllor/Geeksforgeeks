@@ -1,0 +1,84 @@
+﻿https://practice.geeksforgeeks.org/problems/absolute-difference-1/0/
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+namespace ConsoleApplication51
+{
+    class Program
+    {
+
+
+        static string  differenceIs1(string num)
+        {
+
+            if (num.Length == 1) return null;
+
+            for (int i = 0; i +1 < num.Length; i++)
+            {
+                if (Math.Abs(num[i] - num[i + 1]) != 1)
+                {
+                    return null;
+                }
+            }
+            return num;
+        }
+
+        static void AbsoluteDifferenceOf1(long [] arr, long k)
+        {
+
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] < k)
+                {
+                    if (differenceIs1(arr[i].ToString()) != null)
+                    {
+                        sb.Append(arr[i] + " ");
+                    }
+                }
+            }
+
+            if (sb.Length > 0)
+            {
+                Console.WriteLine(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine("-1");
+            }
+
+        }
+        
+
+
+        static void Main(string[] args)
+        {
+
+            int t = int.Parse(Console.ReadLine().Trim());
+
+            while (t-- > 0)
+            {
+                //int n = int.Parse(Console.ReadLine().Trim());
+                string[] input = Console.ReadLine().Trim().Split(' ');
+                int n = int.Parse(input[0]);
+                long k = long.Parse(input[1]);
+
+                long[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), e => long.Parse(e));
+
+                AbsoluteDifferenceOf1(arr, k);
+
+            }
+
+
+            Console.ReadLine();
+
+        }
+    }
+}
