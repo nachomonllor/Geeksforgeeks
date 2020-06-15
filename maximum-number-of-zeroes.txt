@@ -1,80 +1,102 @@
 ﻿https://practice.geeksforgeeks.org/problems/maximum-number-of-zeroes/0
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.tito;
 
-namespace ConsoleApplication51
-{
-    class Program
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+/**
+ *
+ * @author Usuario
+ */
+public class NewMain {
+
+    
+    static BigInteger MaxZeros(BigInteger[] arr)
     {
-
-
-        static int MaxZeros(int[] arr)
+        int maxZeros = 0;
+        BigInteger candidate = BigInteger.valueOf( -1);
+        for (int i = 0; i < arr.length; i++)
         {
-            int maxZeros = 0;
-            int candidate = -1;
-            for (int i = 0; i < arr.Length; i++)
+            int contZeros = 0;
+            BigInteger aux =   arr[i] ;
+            while (aux.compareTo( BigInteger.valueOf(0) ) > 0 )
             {
-                int contZeros = 0;
-                int aux = arr[i];
-                while (aux > 0)
+                if (aux.mod(BigInteger.valueOf( 10)).compareTo( BigInteger.valueOf( 0)) == 0)
                 {
-                    if (aux % 10 == 0)
-                    {
-                        contZeros++;
-                    }
-
-                    aux /= 10;
+                    contZeros++;
                 }
 
-                if (contZeros > 0)
+                aux = aux.divide(BigInteger.valueOf(10));
+            }
+
+            if (contZeros > 0)
+            {
+                if (contZeros > maxZeros)
                 {
-                    if (contZeros > maxZeros)
+                    maxZeros = contZeros;
+                    candidate = arr[i];
+                }
+                else if (contZeros == maxZeros)
+                {
+                    //if (arr[i] > candidate)
+                    if(arr[i].compareTo( candidate ) > 0 )
                     {
-                        maxZeros = contZeros;
                         candidate = arr[i];
                     }
-                    else if (contZeros == maxZeros)
-                    {
-                        if (arr[i] > candidate)
-                        {
-                            candidate = arr[i];
-                        }
-                    }
                 }
             }
-            return candidate;
-
         }
-        
+        return candidate;
 
-
-        static void Main(string[] args)
-        {
-
-            int t = int.Parse(Console.ReadLine().Trim());
-
-            while (t-- > 0)
-            {
-                int n = int.Parse(Console.ReadLine().Trim());
-
-                int[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), e => int.Parse(e));
-
-
-                Console.WriteLine(MaxZeros(arr));
-
-            }
-
-            
-
-
-
-
-            Console.ReadLine();
-
-        }
     }
+
+       
+    
+    public static void main(String[] args) throws IOException {
+        
+       /*
+       BigInteger[] arr = { new BigInteger("10"),
+           new BigInteger("20"),
+           new BigInteger("3000"),
+           new BigInteger("9999"),
+           new BigInteger("200")};
+       System.out.println(MaxZeros(arr));
+       */
+       
+       BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //Ya tenemos el "lector"
+
+       int t = Integer.parseInt(br.readLine().trim());
+       
+       StringBuilder sb = new StringBuilder();
+       
+       while(t-- > 0) {
+           
+           int n = Integer.parseInt(br.readLine().trim());
+           
+           String[] input = br.readLine().trim().split(" ");
+           
+           BigInteger[] arr = new BigInteger[n];
+           for(int i =0; i<n; i++) {
+               arr[i] = new BigInteger(input[i]);
+           }
+           sb.append( MaxZeros(arr));
+           sb.append("\n");
+           
+       }
+               
+       System.out.println(sb.toString());
+
+    }
+
+    
 }
