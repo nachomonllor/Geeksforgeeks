@@ -1,0 +1,58 @@
+﻿https://practice.geeksforgeeks.org/problems/repeated-ids/0/
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication51
+{
+    class Program
+    {
+
+
+        static void MostrarSinRepetir(int[] arr)
+        {
+
+            HashSet<int> hash = new HashSet<int>();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (!hash.Contains(arr[i]))
+                {
+                    Console.Write(arr[i] + " ");
+                }
+                hash.Add(arr[i]);
+            }
+
+            Console.WriteLine();
+
+
+        }
+
+
+
+        static void Main(string[] args)
+        {
+
+            int t = int.Parse(Console.ReadLine().Trim());
+
+            while (t-- > 0)
+            {
+                int n = int.Parse(Console.ReadLine().Trim());
+
+                int[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), e => int.Parse(e));
+
+                MostrarSinRepetir(arr);
+
+            }
+
+           
+
+
+            Console.ReadLine();
+
+        }
+    }
+}
