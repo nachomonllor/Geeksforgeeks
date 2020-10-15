@@ -1,0 +1,36 @@
+https://practice.geeksforgeeks.org/problems/kth-smallest-element/0/?category[]=Arrays&problemStatus=unsolved&difficulty[]=1&page=1&query=category[]ArraysproblemStatusunsolveddifficulty[]1page1
+
+def KthSmallest(arr, k):
+
+    frec = [0] * (max(arr) + 1)
+
+    for i in range(0, len(arr)):
+        frec[arr[i]] += 1
+
+    '''print(frec)'''
+
+    cont = 0 
+    for i in range(0, len(frec)):
+
+        while frec[i] != 0:
+            cont += 1 
+            frec[i] -= 1 
+
+            if cont == k:
+                return i  
+
+    return -1 
+
+
+    
+
+'''print(KthSmallest([7, 10, 4, 3, 20, 15], 3))'''
+
+T = int(input())
+
+for i in range(0, T):
+    size_array = int(input())
+    lista = list(map(int, input().split()))
+    K = int(input())
+
+    print(KthSmallest(lista, K))
