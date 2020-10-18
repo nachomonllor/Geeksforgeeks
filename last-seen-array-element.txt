@@ -1,0 +1,29 @@
+
+https://practice.geeksforgeeks.org/problems/last-seen-array-element/0/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=2&query=category[]ArraysproblemStatusunsolveddifficulty[]0page2
+
+
+def LastSeenArrayElement(a):
+
+    #ini = [-1] * (max(a) + 1)
+    fin = [-1] * (max(a) + 1)
+
+    for i in range(0, len(a)):
+        fin[a[i]] = i
+
+    min_segundo_indice = len(a) + 1
+    candidato = -1
+    for i in range(0, len(a)):
+        if fin[a[i]] < min_segundo_indice:
+            min_segundo_indice = fin[a[i]] 
+            candidato = a[i] 
+
+    return candidato
+
+
+T = int(input())
+
+for i in range(0, T):
+    n = int(input())
+    a = list(map(int, input().split()))
+
+    print( LastSeenArrayElement(a))

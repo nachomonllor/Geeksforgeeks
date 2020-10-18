@@ -1,0 +1,40 @@
+
+https://practice.geeksforgeeks.org/problems/maximum-difference-1/0/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=1&query=category[]ArraysproblemStatusunsolveddifficulty[]0page1
+
+def MaximumDifferenceIndexes(arr):
+    ini =[-1] * (max(arr) + 1)
+    fin =[-1] * (max(arr) + 1)
+
+    maximo = 0
+    for i in range(0, len(arr)):
+        if ini[arr[i]] == -1:
+            ini[arr[i]] = i
+        else:
+            fin[arr[i]] = i 
+        maximo = max(maximo, fin[arr[i]] - ini[arr[i]])
+    
+    #for i in range(0, len(arr)):
+    #    maximo = max(maximo, fin[arr[i]] - ini[arr[i]])
+    return maximo  
+
+
+
+'''
+arr = [ 2, 1, 3, 4 ,2 ,1 ,5 ,1 ,7]
+print( MaximumDifferenceIndexes(arr) )
+
+
+arr = [ 1,2,2,1,1,2,2,2,1,1,2,2,1]
+print( MaximumDifferenceIndexes(arr) )
+
+arr = [ 1,1,1,1]
+print( MaximumDifferenceIndexes(arr) )
+'''
+
+
+T = int(input())
+
+for i in range(0, T):
+    N = int(input())
+    arr = list(map(int, input().split()))
+    print(MaximumDifferenceIndexes(arr))

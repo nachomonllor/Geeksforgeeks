@@ -1,0 +1,32 @@
+https://practice.geeksforgeeks.org/problems/common-divisor/0/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=1&query=category[]ArraysproblemStatusunsolveddifficulty[]0page1
+
+def divisores(a):
+    div = set()
+    i = 1 
+
+    while i * i <= a:
+        if a % i == 0:
+            div.add(i)
+            if a / i != i:
+                div.add(a / i)
+        i += 1 
+    return div 
+
+def CommonDivisor(p, q):  
+
+    dp = divisores(p)
+    dq = divisores(q)
+
+    comunes = 0
+    for item in dp:
+        if item in dq:
+            comunes += 1
+
+    return comunes 
+
+
+T = int(input())
+
+for i in range(0, T):
+    p, q = map(int, input().split())
+    print(CommonDivisor(p, q))

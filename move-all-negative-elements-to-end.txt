@@ -1,0 +1,56 @@
+https://practice.geeksforgeeks.org/problems/move-all-negative-elements-to-end/0/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=2&query=category[]ArraysproblemStatusunsolveddifficulty[]0page2
+
+// ConsoleApplication4.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//
+
+#include <iostream>
+#include <vector>
+#include <stdio.h>
+
+using namespace std;
+
+std::vector<int> MoveAllNegativeElementsToEnd(vector<int> ar, int n) {
+
+    for (int i = 1; i < n; i++)
+    {
+        int indice = i;
+        while (indice > 0 && ar[indice - 1] < 0 &&  ar[indice] >= 0)
+        {
+            int temp = ar[indice - 1];
+            ar[indice - 1] = ar[indice];
+            ar[indice] = temp;
+            indice--;
+        }
+    }
+    return ar;
+}
+
+
+int main()
+{
+
+    int T;
+    cin >> T;
+
+    for (int i = 0; i < T; i++) {
+        int N;
+        cin >> N;
+        
+        vector<int> a;
+        for (int i = 0; i < N; i++) {
+            int elem;
+            cin >> elem;
+            a.push_back(elem);
+        }
+
+        a = MoveAllNegativeElementsToEnd(a, N);
+
+        for (int i = 0; i < N; i++) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+
+
+    return 0;
+}

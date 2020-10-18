@@ -1,0 +1,29 @@
+https://practice.geeksforgeeks.org/problems/amount-of-water/0/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=1&query=category[]ArraysproblemStatusunsolveddifficulty[]0page1
+def trap(H):
+
+    if len(H) == 0: return 0 
+
+    sum = 0
+
+    izq = [0] * len(H)
+    izq[0] = H[0]
+
+    for i in range(1, len(H)):
+        izq[i] = max(izq[i-1], H[i])
+    der = [0] * len(H)
+    der[len(H) - 1] = H[len(H) - 1]
+
+    for i in range(len(H) - 2, -1, -1):
+        der[i] = max(der[i+1], H[i])
+
+    for i in range(0, len(H)):
+        sum += min(izq[i], der[i]) - H[i]
+
+    return sum
+
+T = int(input())
+
+for i in range(0, T):
+    N = int(input())
+    arr = list(map(int, input().split()))
+    print( trap(arr) )

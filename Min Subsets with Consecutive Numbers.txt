@@ -1,0 +1,197 @@
+
+https://practice.geeksforgeeks.org/problems/min-subsets-with-consecutive-numbers/0/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=1&query=category[]ArraysproblemStatusunsolveddifficulty[]0page1
+
+
+-----------Soluciones en O(n) ---------------------------------------------
+
+def MinSubsetswithConsecutiveNumbers(arr):
+
+    hash = set(arr)
+    dic = {}
+
+    for i in range(0, len(arr)):
+        izq = arr[i] - 1 
+
+        while izq in hash:
+            izq -= 1 
+        
+        der = izq + 1 
+
+        if not der in dic:
+            dic[der] = 1  
+
+        if der in dic:
+            while der in hash:
+                der += 1 
+
+    return len(dic)
+
+
+
+
+'''print(MinSubsetswithConsecutiveNumbers( [100, 56 ,5 ,6 ,102 ,58, 101, 57, 7 ,103 ] ))'''
+t = int(input())
+
+while t > 0:
+    n = int(input())
+    lista = list(map(int, input().split()))
+    print(MinSubsetswithConsecutiveNumbers(lista))
+    t -= 1
+
+
+-------------------------
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp7
+{
+    class Program
+    {
+
+
+        static int MinSubsetswithConsecutiveNumbers(int[] arr)
+        {
+
+            HashSet<int> hash = new HashSet<int>(arr);
+
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                int izq = arr[i] - 1;
+                
+                while (hash.Contains(izq))
+                {
+                    izq--;
+                }
+                int der = izq+1;
+
+                if(!dic.ContainsKey(der) )
+                {
+                    dic.Add(der, 1);
+
+                }
+                if (dic.ContainsKey(der))
+                {
+                    while (hash.Contains(der))
+                    {
+                      //  Console.Write(der + " ");
+                        der++;
+                    }
+
+                }
+               // Console.WriteLine();
+            }
+
+
+            return dic.Count;
+
+        }
+
+
+
+        static void Main(string[] args)
+        {
+
+            //int[] arr = { 100, 56, 5, 6, 102, 58, 101, 57, 7, 103 };
+            int[] arr = { 100, 57, 5, 6, 102, 58, 101, 56, 7, 103 };
+
+            // int[] arr = { 10, 100, 105 };
+
+            Console.WriteLine(MinSubsetswithConsecutiveNumbers(arr));
+
+            //int t = int.Parse(Console.ReadLine());
+
+            //while(t-- > 0)
+            //{
+            //    int n = int.Parse(Console.ReadLine());
+            //    int[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), e => int.Parse(e));
+            //    Console.WriteLine(MinSubsetswithConsecutiveNumbers(arr));
+            //}
+
+
+
+           // Console.WriteLine(MinSubsetswithConsecutiveNumbers(arr));
+
+
+            Console.ReadLine();
+        }
+    }
+}
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+using System;
+using System.Linq;
+
+namespace ConsoleApp7
+{
+    class Program
+    {
+
+        static int MinSubsetswithConsecutiveNumbers(int[] arr)
+        {
+            int max = arr.Max();
+            int[] frec = new int[max + 1];
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                frec[arr[i]]++;
+            }
+
+            int grupos = 0;
+
+            bool flag = false;
+            for (int i = 0; i < frec.Length; i++)
+            {
+                if(frec[i] == 1)
+                {
+                    flag = true;
+                }
+                if(frec[i] == 0 && flag)
+                {
+                    grupos++;
+                    flag = false; 
+                }
+            }
+
+            if(flag )
+            {
+                grupos++;
+            }
+
+
+            return grupos; 
+        }
+
+        static void Main(string[] args)
+        {
+
+            //int[] arr = { 100, 56, 5, 6, 102, 58, 101, 57, 7, 103 };
+            // int[] arr = { 10, 100, 105 };
+
+            int t = int.Parse(Console.ReadLine());
+
+            while(t-- > 0)
+            {
+                int n = int.Parse(Console.ReadLine());
+                int[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), e => int.Parse(e));
+                Console.WriteLine(MinSubsetswithConsecutiveNumbers(arr));
+            }
+
+
+
+           // Console.WriteLine(MinSubsetswithConsecutiveNumbers(arr));
+
+
+            Console.ReadLine();
+        }
+    }
+}

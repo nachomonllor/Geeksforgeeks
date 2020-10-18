@@ -1,0 +1,76 @@
+
+https://practice.geeksforgeeks.org/problems/predict-the-column/1/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=1&query=category[]ArraysproblemStatusunsolveddifficulty[]0page1
+
+
+// { Driver Code Starts
+//Initial Template for C++
+//#include <bits/stdc++.h>
+
+#include <iostream>
+
+
+using namespace std;
+
+int M[100][100];
+
+// Function prototype
+int columnWithMaxZeros(int);
+
+
+// } Driver Code Ends
+
+
+//User function Template for C++
+
+/*Function to count zeros in each column
+* N : Number of rows and columns in array
+M is the matrix that is globally declared
+*/
+int columnWithMaxZeros(int N) {
+
+	int max_ceros = 0;
+	int ans = -1;
+	// Your code here
+	for (int col = 0; col < N; col++) {
+
+		int ceros = 0;
+		for (int fila = 0; fila < N; fila++) {
+
+			if (M[fila][col] == 0) {
+				ceros++;
+			}
+		}
+		if (ceros > max_ceros) {
+			max_ceros = ceros;
+			ans = col;
+		}
+	}
+	return ans;
+
+}
+
+// { Driver Code Starts.
+
+// Driver code to test columnWithMaxZeros function
+int main() {
+
+	int testcase;
+
+	cin >> testcase;
+
+	while (testcase--) {
+		int N;
+		cin >> N;
+
+		// Taking elements input into the matrix
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				cin >> M[i][j];
+			}
+		}
+
+		cout << columnWithMaxZeros(N) << endl;
+	}
+
+	return 0;
+}  //

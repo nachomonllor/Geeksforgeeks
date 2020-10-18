@@ -1,0 +1,26 @@
+https://practice.geeksforgeeks.org/problems/first-repeating-element/0/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=2&query=category[]ArraysproblemStatusunsolveddifficulty[]0page2
+
+def FirstRepeatingElement (arr):
+    dic = {}
+
+    for i in range(0, len(arr)):
+        if arr[i] in dic:
+            #return i + 1 
+            dic[arr[i]] += 1 
+        else:
+            dic[arr[i]] = 1 
+
+
+    for i in range(0, len(arr)):
+        if dic[arr[i]] > 1:
+            return i + 1
+
+    return -1 
+
+
+T = int(input())
+
+for i in range(0, T):
+    N = int(input())
+    arr = list(map(int, input().split()))
+    print(FirstRepeatingElement(arr))
