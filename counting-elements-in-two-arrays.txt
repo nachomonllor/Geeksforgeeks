@@ -1,0 +1,73 @@
+https://practice.geeksforgeeks.org/problems/counting-elements-in-two-arrays/1/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=1&query=category[]ArraysproblemStatusunsolveddifficulty[]0page1
+
+#include <iostream>
+#include <stdio.h>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+
+vector<int> countEleLessThanOrEqual(int arr1[], int arr2[], int m, int n)
+{
+
+    int max = 100001;
+    int* indices = (int*)calloc(max + 1, sizeof(int));
+
+    for (int i = 0; i < max + 1; i++) {
+        indices[i] = 0;
+    }
+
+
+    for (int i = 0; i < n; i++) {
+        indices[arr2[i]]++;
+    }
+
+
+    int anterior = 0;
+    int* nuevo_map = (int*)calloc( max + 1, sizeof(int));
+
+
+    for (int i = 0; i < max + 1; i++) {
+        nuevo_map[i] = 0;
+    }
+
+    for (int i = 0; i < max + 1; i++) {
+        anterior += indices[i];
+        nuevo_map[i] = anterior;
+    }
+
+    vector<int> v;
+    for (int i = 0; i < m; i++) {
+        v.push_back(nuevo_map[arr1[i]]);
+    }
+
+    return v;
+
+}
+
+int main()
+{
+
+
+    /*
+    int arr1[] = { 1,2,3,4,7,9 };
+    int arr2[] = { 0,1,2,1,1,4 };
+
+    countEleLessThanOrEqual(arr1, arr2, 6, 6);
+    */
+
+    int arr1[] = { 4, 8, 7, 5, 1 };
+    int arr2[] = { 4, 48, 3, 0, 1, 1, 5 };
+
+   vector<int> r= countEleLessThanOrEqual(arr1, arr2, 5, 7);
+
+   for (int i = 0; i < 5; i++) {
+       cout << r[i] << " ";
+   }
+
+
+
+    return 0;
+}
+

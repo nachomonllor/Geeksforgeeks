@@ -1,0 +1,32 @@
+
+https://practice.geeksforgeeks.org/problems/word-with-maximum-frequency/0/?category[]=Strings&problemStatus=unsolved&difficulty[]=0&page=2&query=category[]StringsproblemStatusunsolveddifficulty[]0page2
+
+def WordWithMaximumFrequency(s):
+
+   arr = s.split(' ')
+   dic = {}
+   max_frec = 0 
+
+   for i in range(0, len(arr)):
+       
+       if arr[i] in dic:
+           dic[arr[i]] += 1 
+       else:
+           dic[arr[i]] = 1 
+   
+   for i in range(0, len(arr)):
+       max_frec = max(max_frec, dic[arr[i]])
+       #print (arr[i], " " , dic[arr[i]])
+   
+   for i in range(0, len(arr)):
+       if dic[arr[i]] == max_frec:
+           print (arr[i], dic[arr[i]])
+           break
+  
+    
+
+T = int(input())
+
+for i in range(T):
+    s = input()
+    WordWithMaximumFrequency(s) 

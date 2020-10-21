@@ -1,0 +1,78 @@
+
+
+https://practice.geeksforgeeks.org/problems/reorganize-the-array/0/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=1&query=category[]ArraysproblemStatusunsolveddifficulty[]0page1
+
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> ReorganizeTheArray(vector<int> arr) {
+
+    int max = arr.size();
+
+    vector<bool> frec;
+
+    for (int i = 0; i < arr.size()+1; i++) {
+        frec.push_back(false);
+    }
+
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] != -1) {
+            frec[arr[i]] = true;
+        }
+    }
+
+    vector<int> ans;
+    for (int i = 0; i < arr.size(); i++) {
+        if ( frec[i]) {
+            ans.push_back(i);
+        }
+        else {
+            ans.push_back(-1);
+        }
+    }
+    return ans;
+
+}
+
+
+int main()
+{
+    /*
+    int arr[] = { -1, -1, 6, 1, 9, 3, 2, -1, 4, -1 };
+    vector<int> v;
+    for (int i = 0; i < 10; i++) {
+        v.push_back(arr[i]);
+    }
+
+    vector<int> r = ReorganizeTheArray(v);
+   
+    for (int i = 0; i < r.size(); i++) {
+        cout << r[i] << " ";
+    }
+    */
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<int> v;
+        for (int i = 0; i < n; i++) {
+            int elem;
+            cin >> elem;
+            v.push_back(elem);
+        }
+
+        v = ReorganizeTheArray(v);
+        for (int i = 0; i < n; i++) {
+            cout << v[i] << " ";
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}

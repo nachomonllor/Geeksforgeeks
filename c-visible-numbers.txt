@@ -1,0 +1,73 @@
+
+https://practice.geeksforgeeks.org/problems/c-visible-numbers/0/?category[]=Arrays&problemStatus=unsolved&difficulty[]=0&page=4&query=category[]ArraysproblemStatusunsolveddifficulty[]0page4#
+
+#include <iostream>
+#include <stdio.h>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+void VisibleNumbers(int arr[], int n) {
+
+    int* frec = (int*)calloc(101, sizeof(int));
+
+    for (int i = 0; i < n; i++) {
+        frec[arr[i]]++;
+    }
+
+    /*
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " " << frec[arr[i]] << endl;
+    }
+    cout << "\n";
+    */
+
+    bool flag = false;
+    for (int i = 0; i < 101; i++) {
+        if (frec[i] > 0) {
+            if (frec[i] > (double)(n / 3.0)) {
+                flag = true;
+                cout << i << " ";
+            }
+        }
+    }
+
+    if (flag == false) {
+        cout << "-1" << " ";
+    }
+
+    cout << "\n";
+}
+
+
+int main()
+{
+
+    //int arr[] = { 1, 2, 2, 3 ,2 ,3 ,2 ,3};
+    //int arr[] = { 100, 95, 100, 100, 94, 95, 94, 100, 100, 93, 95, 95, 100, 95, 93, 100 ,95, 94, 100, 94 };
+    //int size = sizeof(arr) / sizeof(int);
+    //VisibleNumbers(arr, size);
+
+
+    int t;
+    cin >> t;
+
+    while (t--)
+    {
+        int n;
+        cin >> n;
+        int* arr = (int*)calloc(101, sizeof(int));
+        for (int i = 0; i < n; i++) {
+            int elem;
+            cin >> elem;
+            arr[i] = elem;
+        }
+
+        VisibleNumbers(arr, n);
+
+    }
+    
+
+    return 0;
+}
