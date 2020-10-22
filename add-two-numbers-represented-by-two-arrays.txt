@@ -1,0 +1,159 @@
+
+
+https://practice.geeksforgeeks.org/problems/add-two-numbers-represented-by-two-arrays/0/?category[]=Strings&problemStatus=unsolved&difficulty[]=0&page=2&query=category[]StringsproblemStatusunsolveddifficulty[]0page2#
+
+
+
+#include <iostream>
+#include <stdio.h>
+#include <vector>
+
+using namespace std;
+
+vector<int> AddTwoNumbers(vector<int> a, vector<int> b) {
+
+    while (a.size() < b.size()) {
+        a.insert(a.begin(), 0);
+    }
+
+
+    while (b.size() < a.size()) {
+        b.insert(b.begin(), 0);
+    }
+
+
+    vector<int> ans;
+
+    int mellevo = 0;
+    int i = a.size() - 1;
+    int j = b.size() - 1;
+    for (; i >= 0 && j >= 0; i--, j--) {
+
+        int suma = a[i] + b[j] + mellevo;
+        ans.insert(ans.begin(), suma % 10);
+
+        if (suma > 9) {
+            mellevo = (suma / 10);
+        }
+        else {
+            mellevo = 0;
+        }
+    }
+
+    while (i >= 0) {
+        int suma = a[i] + mellevo;
+        ans.insert(ans.begin(), suma % 10);
+
+        if (suma > 9) {
+            mellevo = (suma / 10);
+        }
+        else {
+            mellevo = 0;
+        }
+    }
+
+    while (j >= 0) {
+        int suma = b[j] + mellevo;
+        ans.insert(ans.begin(), suma % 10);
+
+        if (suma > 9) {
+            mellevo = (suma / 10);
+        }
+        else {
+            mellevo = 0;
+        }
+    }
+
+    if (mellevo > 0) {
+        ans.insert(ans.begin(), mellevo);
+    }
+
+    
+    vector<int> sin_ceros;
+
+    int k = 0;
+    for (; k < ans.size(); k++) {
+        if (ans[k] != 0) {
+            break;
+        }
+
+    }
+
+    for (int m = k; m < ans.size(); m++) {
+        sin_ceros.insert(sin_ceros.begin(), ans[m]);
+    }
+
+    return sin_ceros;
+}
+
+
+
+int main()
+{
+
+    
+    /*
+    int num1[] = { 0, 9, 0, 0 ,3 ,5};
+    int s1 = sizeof(num1) / sizeof(int);
+    vector<int> a;
+    for (int i = 0; i < s1; i++) {
+        a.push_back(num1[i]);
+    }
+
+    int num2[] = { 2, 2, 7};
+    int s2 = sizeof(num2) / sizeof(int);
+    vector<int> b;
+    for (int i = 0; i < s2; i++) {
+        b.push_back(num2[i]);
+    }
+
+    vector<int> r = AddTwoNumbers(a, b);
+    //for (int i = 0; i < r.size(); i++) {
+    //for(int i = r.size() - 1; i>=0; i--) {
+    for(int i =0; i<r.size(); i++ ) {
+        cout << r[i] << " ";
+    }
+    */
+    
+
+
+    
+    
+    int T;
+    cin >> T;
+    int elem;
+
+    while (T--) {
+        int N;
+        cin >> N;
+        vector<int> A;
+
+        for (int i = 0; i < N; i++) {
+            cin >> elem;
+            A.push_back(elem);
+        }
+
+        int M;
+        cin >> M;
+        vector<int> B;
+        for (int i = 0; i < M; i++) {
+            cin >> elem;
+            B.push_back(elem);
+        }
+
+        vector<int> R = AddTwoNumbers(A, B);
+
+        //for (int i = 0; i < R.size(); i++) 
+        for(int i = R.size() - 1; i >= 0; i--)
+        {
+            cout << R[i];
+        }
+
+        cout << endl;
+
+    }
+    
+    
+
+    return 0;
+}

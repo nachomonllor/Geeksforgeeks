@@ -1,0 +1,92 @@
+
+https://practice.geeksforgeeks.org/problems/sexy-primes3341/1/?category[]=Mathematical&problemStatus=unsolved&difficulty[]=0&page=3&query=category[]MathematicalproblemStatusunsolveddifficulty[]0page3
+
+// { Driver Code Starts
+// Initial Template for C++
+#include <bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+
+
+
+// User function Template for C++
+class Solution {
+  public:
+  
+    
+set<int> SieveOfEratosthenes(int n)
+{
+    // Create a boolean array "prime[0..n]" and initialize 
+    // all entries it as true. A value in prime[i] will 
+    // finally be false if i is Not a prime, else true. 
+    
+    //bool prime[n + 1];
+    //memset(prime, true, sizeof(prime));
+
+    vector<bool> prime;
+    for (int i = 0; i < n + 1; i++) {
+        prime.push_back(true);
+    }
+
+
+    for (int p = 2; p * p <= n; p++)
+    {
+        // If prime[p] is not changed, then it is a prime 
+        if (prime[p] == true)
+        {
+            // Update all multiples of p 
+            for (int i = p * 2; i <= n; i += p)
+                prime[i] = false;
+        }
+    }
+
+
+    set<int> lista;
+    for (int p = 2; p <= n; p++)
+        if (prime[p])
+            lista.insert(p);
+
+    return lista;
+
+}
+  
+    set<int> hash_primos = SieveOfEratosthenes(1001);
+    
+    Solution(){
+        
+    }
+  
+    vector<int> sixyPrime(int L, int R) {
+        // code here
+        vector<int> sixy;
+        for (int i = L; i + 6 <= R; i++) {
+            if (hash_primos.find(i) != hash_primos.end() && hash_primos.find(i + 6) != hash_primos.end()) {
+                //cout << i << " " << (i + 6) << " ";
+                sixy.push_back(i);
+                sixy.push_back(i + 6);
+            }
+        }
+        
+        if(sixy.size() == 0) {
+            sixy.push_back(-1);
+        }
+    
+        return sixy;
+    }
+};
+
+// { Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int L,R;
+        cin >> L >> R;
+        Solution ob;
+        vector<int>ans=ob.sixyPrime(L,R);    
+        for(int i=0;i<ans.size();i++)cout<<ans[i]<<" ";
+        cout<<endl;
+    }
+    return 0;
+}
