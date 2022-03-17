@@ -1,0 +1,21 @@
+
+
+https://practice.geeksforgeeks.org/problems/counting-sort/1/?page=2&status[]=unsolved&category[]=Sorting&sortBy=submissions
+
+  public static string countSort(string arr)
+        {
+            //code here
+            int[] frec = new int[26];
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                frec[arr[i] - 'a']++;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for(int ch =0; ch <26; ch++)
+            {
+                sb.Append(new string( (char)(ch + 'a'), frec[ch]));
+            }
+            return sb.ToString();
+        }
