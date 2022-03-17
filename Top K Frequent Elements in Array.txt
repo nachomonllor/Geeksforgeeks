@@ -1,0 +1,26 @@
+https://practice.geeksforgeeks.org/problems/top-k-frequent-elements-in-array/1/?page=3&status[]=unsolved&category[]=Sorting&sortBy=submissions
+
+def topK( nums, k):
+    frec_nums = {}
+    for item in nums:
+        if item in frec_nums:
+            frec_nums[item] += 1
+        else:
+            frec_nums[item] = 1
+
+    frec_nums_ord_por_frec = sorted(frec_nums.items(), key=lambda x: [x[1],x[0]], reverse=True)
+    ans = []
+    i = 0
+    for key in frec_nums_ord_por_frec:
+        if i >= k:
+            break
+        ans.append(key[0])
+        i+=1
+    return ans
+
+nums = [1,1,1,2,2,3]
+k = 2
+
+print(topK( nums, k))
+
+
