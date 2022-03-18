@@ -1,0 +1,18 @@
+
+https://practice.geeksforgeeks.org/problems/minimum-product-of-k-integers2553/1/?page=3&status[]=unsolved&category[]=Sorting&sortBy=submissions
+
+
+int check(int* a, int* b, int n) {
+	// Complete the function
+	int frec[10] = { 0 };
+
+	for (int i = 0; i < n; i++) {
+		frec[a[i]]++;
+		frec[b[i]] --;
+	}
+
+	for (int i = 0; i < 10; i++)
+		if (frec[i] != 0)
+			return 0;
+	return 1;
+}
