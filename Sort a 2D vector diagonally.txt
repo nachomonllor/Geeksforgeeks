@@ -1,0 +1,55 @@
+
+https://practice.geeksforgeeks.org/problems/diagonal-morning-assembly0028/1/?page=3&status[]=unsolved&category[]=Sorting&sortBy=submissions
+
+
+def diagonalSort( matrix, n, m):
+
+    for col in range(1, m):
+        f = 0
+        c = col
+        arriba = []
+
+        while f < n and c < m:
+            arriba.append(matrix[f][c])
+            f+=1
+            c+=1
+        arriba = sorted(arriba)
+
+        f = 0
+        c = col
+
+        index = len(arriba) - 1
+        while f < n and c < m:
+            matrix[f][c] = arriba.pop()
+            f+=1
+            c+=1
+
+    for fila in range(1, n):
+        abajo = []
+        f = fila
+        c = 0
+        while f < n and c < m:
+            abajo.append(matrix[f][c])
+            f+=1
+            c+=1
+        f = fila
+        c = 0
+        abajo = list(reversed(sorted(abajo)))
+        index = 0
+        while f < n and c < m:
+            matrix[f][c] = abajo.pop()
+            f+=1
+            c+=1
+
+N = 4
+M = 5 
+matrix = [[3, 6, 3, 8, 2],
+          [4, 1, 9, 5, 9],
+          [5, 7, 2, 4, 8],
+          [8, 3, 1, 7, 6]]
+
+diagonalSort( matrix, N,M)
+
+for i in range(0, N):
+    print(matrix[i])
+
