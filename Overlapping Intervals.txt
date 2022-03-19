@@ -1,0 +1,105 @@
+
+https://practice.geeksforgeeks.org/problems/8a644e94faaa94968d8665ba9e0a80d1ae3e0a2d/1/?page=1&difficulty[]=1&status[]=unsolved&category[]=Sorting&sortBy=submissions#
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
+public class JavaApplication4 {
+
+    /**
+     * @param args the command line arguments
+     */
+  
+        static int partition(int[][] arr, int low, int high)
+        {
+            int[] pivot = arr[high];
+            int i = (low - 1); // index of smaller element
+            for (int j = low; j <= high - 1; j++) {
+                // If current element is smaller than or
+                // equal to pivot
+                if (arr[j][0] <= pivot[0]) {
+                    i++;
+
+                    // swap arr[i] and arr[j]
+                    int[] temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+
+            // swap arr[i+1] and arr[high] (or pivot)
+            int[] temp = arr[i + 1];
+            arr[i + 1] = arr[high];
+            arr[high] = temp;
+
+            return i + 1;
+        }
+
+        /* The main function that implements QuickSort()
+        arr[] --> Array to be sorted,
+        low --> Starting index,
+        high --> Ending index */
+        static void qSort(int[][] arr, int low, int high)
+        {
+            if (low < high) {
+                /* pi is partitioning index, arr[pi] is
+                now at right place */
+                int pi = partition(arr, low, high);
+
+                // Recursively sort elements before
+                // partition and after partition
+                qSort(arr, low, pi - 1);
+                qSort(arr, pi + 1, high);
+            }
+        }
+    
+        
+        public static int[][] overlappedInterval(int[][] Intervals)
+        {
+            qSort(Intervals, 0, Intervals.length - 1);
+            ArrayList<int[]> ans = new ArrayList();
+            int i = 0;
+            
+            while (i < Intervals.length)
+            {
+                int[] a = Intervals[i];
+                int[] insertar = a;
+                while (i + 1 < Intervals.length && Intervals[i + 1][0] <= a[1])
+                {
+                    insertar = new int[] { Math.min(a[0], Intervals[i + 1][0]), Math.max(a[1], Intervals[i + 1][1]) };
+                    a = insertar;
+                    i++;
+                }
+                ans.add(insertar);
+                i++;
+            }
+            
+            int[][] r = new int[ans.size()][];
+            for( i =0; i<ans.size(); i++) 
+            {
+                r[i] = ans.get(i);
+            }
+            return r;
+        }
+    
+    public static void main(String[] args) {
+        // TODO code application logic here
+        
+        
+        //int[][] Intervals = {{1,3},{2,4},{6,8},{9,10}};
+            
+        int[][] Intervals = {{1 ,2}, {3, 4}, {5, 6}};
+        int[][] ans = overlappedInterval(Intervals);
+           
+           
+        for(int i =0; i<ans.length; i++) {
+            System.out.print("[" + ans[i][0] + ", " + ans[i][1] + "], ");
+        }
+        
+        
+        
+        
+    }
+    
+    
+}
