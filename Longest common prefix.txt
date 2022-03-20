@@ -1,0 +1,33 @@
+
+https://practice.geeksforgeeks.org/problems/minimum-shift-for-longest-common-prefix0759/1/?page=5&difficulty[]=0&status[]=unsolved&category[]=Strings&sortBy=submissions#
+
+
+class Solution:
+    def longestCommonPrefix(self, str1, str2):
+        # code here
+        subs = ""
+        i = len(str1)-1
+        while i >= 0:
+            subs = str1[0:i+1]
+            if subs in str2:
+                return [0,i]
+            i-=1
+        return [-1,-1]
+
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
+
+if __name__ == '__main__':
+    t = int(input())
+    for _ in range(t):
+        str1 = input()
+        str2 = input()
+        ob = Solution()
+        ans = ob.longestCommonPrefix(str1, str2)
+        if ans[0] == -1:
+            print(-1)
+        else:
+            print(ans[0], ans[1])
+
+# } Driver Code Ends
