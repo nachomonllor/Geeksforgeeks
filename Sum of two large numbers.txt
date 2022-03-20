@@ -1,0 +1,58 @@
+
+https://practice.geeksforgeeks.org/problems/sum-of-numbers-or-number1219/1/?page=2&difficulty[]=1&status[]=unsolved&category[]=Strings&sortBy=submissions#
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
+public class JavaApplication4 {
+
+
+    static String EliminarCeros(String str)
+    {
+        int i = 0;
+        while (i < str.length() && str.charAt(i) == '0')
+            i++;
+        StringBuffer sb = new StringBuffer(str);
+        sb.replace(0, i, "");
+        return sb.toString();  
+    }
+    static String findSum(String X, String Y)
+    {
+        int maxlen = Math.max(X.length(), Y.length());
+        X = "0".repeat( maxlen - X.length()) + X;
+        Y = "0".repeat(maxlen - Y.length())  + Y;
+
+        int mellevo = 0;
+        StringBuilder r =  new StringBuilder();
+        
+        for (int i = X.length() - 1; i >= 0; i--)
+        {
+            int sumaActual = ((X.charAt(i) - '0') + (Y.charAt(i) - '0')) + mellevo;
+            if (sumaActual > 9) mellevo = (sumaActual / 10) % 10;
+            else  mellevo = 0;
+            r = r.insert(0, (sumaActual % 10) + "");
+        }
+        
+        if (mellevo > 0) r.insert(0, mellevo+"");  
+        String ans = EliminarCeros(r.toString());
+        if(ans.length() ==0) return "0";
+        return ans;
+        
+    }
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+   
+        //String X = "000000000000000000000000000025", Y = "23";
+        //String X = "0000";
+        //String Y = "0000000000";
+        String X = "57";
+        String Y = "74";
+        
+        System.out.print(findSum(X, Y));
+    }
+    
+    
+}
