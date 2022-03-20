@@ -1,0 +1,85 @@
+
+https://practice.geeksforgeeks.org/problems/parenthesis-checker2744/1/?page=3&status[]=unsolved&sortBy=submissions
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp297
+{
+    class Program
+    {
+
+
+        public static bool ispar(string s)
+        {
+
+            string apertura = "{([";
+            string cierre =   "})]";
+
+            Dictionary<char, char> dic = new Dictionary<char, char>();
+            for (int i = 0; i < apertura.Length; i++)
+            {
+                dic[apertura[i]] = cierre[i];
+            }
+
+            Stack<char> pilaApertura = new Stack<char>();
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (apertura.Contains(s[i]))
+                {
+                    pilaApertura.Push(s[i]);
+                }
+                else
+                {
+                    if (pilaApertura.Count > 0)
+                    {
+                        char ap = pilaApertura.Peek();
+
+                        if (dic[ap] == s[i])
+                        {
+                            pilaApertura.Pop();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if(pilaApertura.Count == 0)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
+
+        static void Main(string[] args)
+        {
+
+            //string s = "{([])}";
+            //string s = "[(])";
+
+            string s = ")";
+
+
+            Console.WriteLine(ispar(s));
+
+
+
+            Console.ReadLine();
+
+        }
+    }
+}
