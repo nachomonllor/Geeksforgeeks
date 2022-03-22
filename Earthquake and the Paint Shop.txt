@@ -56,3 +56,71 @@ class Solution {
     }
 
 }
+
+
+
+-----------------------------C++ -----------------------------
+
+
+
+#include <iostream>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+struct alphanumeric {
+    string name;
+    int count;
+};
+
+class Solution {
+public:
+    vector<alphanumeric> sortedStrings(int N, vector<string> A) {
+        // code here
+        map<string, int> m;
+
+        for (int i = 0; i < N; i++) {
+            m[A[i]]++;
+        }
+
+        vector<alphanumeric> ans;
+        for (std::map<string, int>::iterator it = m.begin(); it != m.end(); it++) {
+            alphanumeric alpha;
+            alpha.name = it->first;
+            alpha.count = it->second;
+            ans.push_back(alpha);
+        }
+
+        return ans;
+    }
+};
+
+int main()
+{
+    
+    string A[] =
+    { "2234597891 zmxvvxbcij 8800654113 jihgfedcba",
+     "1234567891 zxyabcvapo 0123434908 padmadngaa",
+     "1234567891 abcdefghij 9876543219 jihgfedcba",
+     "2234597891 zmxvvxbcij 8800654113 jihgfedcba",
+     "9120121291 zmxvvxbcij 0912114113 mnvxbedcba" };
+
+    vector<string> vec;
+    for (int i = 0; i < 5; i++) {
+        vec.push_back(A[i]);
+    }
+
+    Solution sol;
+
+    vector<alphanumeric> res = sol.sortedStrings(5, vec);
+
+    for (int i = 0; i < res.size(); i++) {
+        cout << res[i].name << ": " << res[i].count << endl;
+    }
+
+    return 0;
+}
+
+
+
