@@ -1,0 +1,86 @@
+https://practice.geeksforgeeks.org/problems/count-occurences-of-anagrams5839/1?page=9&difficulty[]=1&sortBy=submissions
+
+
+//{ Driver Code Starts
+// Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    // Driver code
+    public static void main(String[] args) throws Exception {
+        BufferedReader br =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim());
+        while (t-- > 0) {
+            String txt = br.readLine().trim();
+            String pat = br.readLine().trim();
+
+            int ans = new Solution().search(pat, txt);
+
+            System.out.println(ans);
+        }
+    }
+}
+// } Driver Code Ends
+
+
+// User function Template for Java
+
+class Solution {
+
+    static char[] ObtenerDiccionarioFrecuencias(String s)
+    {
+        char[] dic = new char[26];
+
+        for (int i = 0; i<s.length(); i++)
+        {
+            dic[s.charAt(i) - 'a']++;
+        }
+
+        return dic;
+    }
+
+
+    static boolean CompararDiccionarios(char[] a, char[] b)
+    {
+        for (int i = 0; i<26; i++)
+        {
+            if (a[i] != b[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static int search(String pat, String txt)
+    {
+        // code here
+
+        char[] diccio_pat = ObtenerDiccionarioFrecuencias(pat);
+        char[] diccio_subs_txt = ObtenerDiccionarioFrecuencias(txt.substring(0, pat.length()));
+
+        int cont = 0;
+
+        if (CompararDiccionarios(diccio_pat, diccio_subs_txt))
+        {
+            cont++;
+        }
+
+        for (int i = 0; i + pat.length() < txt.length(); i++)
+        {
+            diccio_subs_txt[txt.charAt(i) - 'a']--;
+            diccio_subs_txt[txt.charAt(i+pat.length()) - 'a']++;
+
+            if (CompararDiccionarios(diccio_pat, diccio_subs_txt))
+            {
+                cont++;
+            }
+        }
+
+        return cont;
+    }
+  
+}
