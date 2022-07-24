@@ -1,0 +1,73 @@
+
+https://practice.geeksforgeeks.org/problems/smallest-positive-missing-number-1587115621/1?page=1&category[]=Searching&sortBy=submissions
+
+//{ Driver Code Starts
+//Initial Template for C#
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DriverCode
+{
+
+    class GFG
+    {
+        static void Main(string[] args)
+        {
+            int testcases;// Taking testcase as input
+            testcases = Convert.ToInt32(Console.ReadLine());
+            while (testcases-- > 0)// Looping through all testcases
+            {
+                
+                int n = Convert.ToInt32(Console.ReadLine());// Input for size of array
+                int[] arr = new int[n];
+                string elements = Console.ReadLine().Trim();
+                elements = elements + " " + "0";
+                int[] arr1 = Array.ConvertAll(elements.Split(), int.Parse);
+                for (int i = 0; i < n; i++)
+                {
+                    arr[i] = arr1[i];
+                }
+                Solution obj = new Solution();
+                int res = obj.missingNumber(arr,n);
+                Console.WriteLine(res);
+            }
+
+        }
+    }
+
+    
+// } Driver Code Ends
+//User function Template for C#
+
+    class Solution
+    {
+      
+        //Function to find the smallest positive number missing from the array.
+        public int missingNumber(int[] arr, int n) 
+        { 
+            HashSet<int> set = new HashSet<int>(arr);
+            int max = arr.Max();
+
+
+            for (int i = 1; i<=max; i++)
+            {
+                if (!set.Contains(i))
+                {
+                
+                    return i;
+                }
+            }
+
+            return max + 1;
+        } 
+
+    }
+
+}
+
+//{ Driver Code Starts.
+// } Driver Code Ends
