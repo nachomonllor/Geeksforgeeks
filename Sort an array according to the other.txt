@@ -1,0 +1,153 @@
+
+https://practice.geeksforgeeks.org/problems/relative-sorting4323/1?page=2&difficulty[]=1&curated[]=1&sortBy=submissions
+
+
+
+//{ Driver Code Starts
+//Initial Template for C#
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DriverCode
+{
+
+    class GFG
+    {
+        static void Main(string[] args)
+        {
+            int testcases;// Taking testcase as input
+            testcases = Convert.ToInt32(Console.ReadLine());
+            while (testcases-- > 0)// Looping through all testcases
+            {
+
+                var ip = Console.ReadLine().Trim().Split(' ');
+                int n = int.Parse(ip[0]);
+                int m = int.Parse(ip[1]);
+                int[] arr = new int[n];
+                ip = Console.ReadLine().Trim().Split(' ');
+                for (int i = 0; i < n; i++)
+                {
+                    arr[i] = int.Parse(ip[i]);
+                }
+                int[] arr1 = new int[m];
+                ip = Console.ReadLine().Trim().Split(' ');
+                for (int i = 0; i < m; i++)
+                {
+                    arr1[i] = int.Parse(ip[i]);
+                }
+                Solution obj = new Solution();
+                var res = obj.sortA1ByA2(arr, n, arr1, m);
+                foreach (int i in res)
+                {
+                    Console.Write(i + " ");
+                }
+                Console.WriteLine();
+            }
+
+        }
+    }
+}
+
+// } Driver Code Ends
+
+
+//User function Template for C#
+
+class Solution
+{
+    // A1[] : the input array-1
+    // N : size of the array A1[]
+    // A2[] : the input array-2
+    // M : size of the array A2[]
+
+    //Function to sort an array according to the other array.
+    public int[] sortA1ByA2(int[] A1, int N, int[] A2, int M)
+    {
+        //Your code here
+       Dictionary<int, int> dict = new Dictionary<int, int>();
+
+        for (int i = 0; i < A1.Length; i++)
+        {
+            if (dict.ContainsKey(A1[i]))
+            {
+                dict[A1[i]]++;
+            }
+            else
+            {
+                dict[A1[i]] = 1;
+            }
+        }
+
+        Dictionary<int, int> posiciones = new Dictionary<int, int>();
+
+        int pos = 0;
+        for (int i = 0; i<A2.Length; i++)
+        {
+            if (!posiciones.ContainsKey(A2[i]))
+            {
+                posiciones.Add(A2[i], pos);
+                pos++;
+            }
+        }
+
+        //foreach(KeyValuePair<int,int> kvp in posiciones)
+        //{
+        //    Console.WriteLine(kvp.Key + " " + kvp.Value);
+        //}
+
+        //Console.WriteLine("Lista ordenada: ");
+        
+        List<List<int>> list = new List<List<int>>();
+
+        for (int i = 0; i<dict.Count; i++)
+        {
+            list.Add(new List<int>());
+        }
+
+
+
+        List<int> resto = new List<int>();
+
+        foreach(KeyValuePair<int,int> kvp in dict)
+        {
+            if(posiciones.ContainsKey(kvp.Key))
+            {
+                List<int> aux = new List<int>();
+                for(int veces =0; veces < kvp.Value; veces ++)
+                {
+                    aux.Add(kvp.Key);
+                }
+                list[posiciones[kvp.Key]]= aux;
+            }
+            else
+            {
+                for (int veces = 0; veces < kvp.Value; veces++)
+                {
+                    resto.Add(kvp.Key);
+                }
+            }
+        }
+
+        List<int> r = new List<int>();
+        foreach(List<int> item in list)
+        {
+            foreach(int num in item)
+            {
+                r.Add(num);
+            }
+        }
+        resto.Sort();
+
+        foreach(int item in resto)
+        {
+            r.Add(item);
+        }
+
+        return r.ToArray();
+    }
+}
