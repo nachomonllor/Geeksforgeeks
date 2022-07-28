@@ -1,0 +1,35 @@
+
+
+https://practice.geeksforgeeks.org/problems/in-first-but-second5423/1?page=11&difficulty[]=1&sortBy=submissions
+
+def findMissing(A,B,N,M):
+    # code here
+    hash_set = set(B)
+    res = []
+
+    for item in A:
+        if not item in hash_set:
+            res.append(item)
+    return res
+
+
+
+#{ 
+ # Driver Code Starts
+#Initial Template for Python 3
+
+
+
+t=int(input())
+for _ in range(0,t):
+   # n=int(input())
+    l = list(map(int, input().split()))
+    n=l[0]
+    m=l[1]
+    a = list(map(int,input().split()))
+    b = list(map(int, input().split()))
+    ans=findMissing(a,b,n,m)
+    for each in ans:
+        print(each,end=' ')
+    print()
+# } Driver Code Ends
