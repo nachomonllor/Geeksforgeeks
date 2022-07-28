@@ -1,0 +1,90 @@
+
+https://practice.geeksforgeeks.org/problems/reverse-array-in-groups0255/1?page=1&curated[]=1&sortBy=submissions
+
+
+//{ Driver Code Starts
+//Initial Template for C#
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DriverCode
+{
+
+    class GFG
+    {
+        static void Main(string[] args)
+        {
+            int testcases;// Taking testcase as input
+            testcases = Convert.ToInt32(Console.ReadLine());
+            while (testcases-- > 0)// Looping through all testcases
+            {
+                string elements = Console.ReadLine().Trim();
+                elements = elements + " " + "0";
+                int[] arr1 = Array.ConvertAll(elements.Split(), int.Parse);
+                int sizeOfArray = arr1[0];// Input for size of array
+                int K = arr1[1];
+                int[] arr = new int[sizeOfArray];
+
+                elements = Console.ReadLine().Trim();
+                elements = elements + " " + "0";
+                arr1 = Array.ConvertAll(elements.Split(), int.Parse);// input for array elements
+                for(int i = 0;i<sizeOfArray;i++){
+                    arr[i] = arr1[i];
+                }
+                
+                Solution obj = new Solution();
+                obj.reverseInGroups(arr, sizeOfArray,K);
+                foreach (int i in arr)
+                {
+                    Console.Write(i + " ");
+                }
+                Console.WriteLine();
+            }
+
+        }
+    }
+
+    
+// } Driver Code Ends
+//User function Template for C#
+
+class Solution
+{
+    //Complete this function
+    public void reverseInGroups(int[] A,int N,int K)
+    {
+        //Your code here
+        int i = 0;
+        while(i < A.Length)
+        {
+            int a = i;
+            int b = i+K-1;
+
+            if (b>= A.Length)
+            {
+                b = A.Length-1;
+            }
+            while(a < b)
+            {
+                int temp = A[a];
+                A[a] = A[b];
+                A[b] = temp;
+
+                a++;
+                b--;
+            }
+            i += K;
+        }
+    }
+
+}
+
+
+
+//{ Driver Code Starts.
+}
+// } Driver Code Ends
