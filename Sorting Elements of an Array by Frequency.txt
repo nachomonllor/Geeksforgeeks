@@ -1,0 +1,86 @@
+
+https://practice.geeksforgeeks.org/problems/sorting-elements-of-an-array-by-frequency-1587115621/1?page=7&difficulty[]=1&sortBy=submissions
+
+//{ Driver Code Starts
+//Initial Template for C#
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DriverCode
+{
+
+    class GFG
+    {
+        static void Main(string[] args)
+        {
+            int testcases;// Taking testcase as input
+            testcases = Convert.ToInt32(Console.ReadLine());
+            while (testcases-- > 0)// Looping through all testcases
+            {
+
+                int n = Convert.ToInt32(Console.ReadLine());
+                int[] arr = new int[n];
+                var ip = Console.ReadLine().Trim().Split(' ');
+                for (int i = 0; i < n; i++)
+                {
+                    arr[i] = int.Parse(ip[i]);
+                }
+                Solution obj = new Solution();
+                var res = obj.sortByFreq(arr, n);
+                foreach (int i in res)
+                {
+                    Console.Write(i + " ");
+                }
+                Console.WriteLine();
+            }
+
+        }
+    }
+}
+// } Driver Code Ends
+
+
+//User function Template for C#
+
+class Solution
+{
+    //Complete this function
+    //Function to sort the array according to frequency of elements.
+    public List<int> sortByFreq(int[] arr, int n)
+    {
+        //Your code here
+        Dictionary<int, int> frec = new Dictionary<int, int>();
+
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (frec.ContainsKey(arr[i]))
+            {
+                frec[arr[i]]++;
+            }
+            else
+            {
+                frec[arr[i]] = 1;
+            }
+        }
+
+        var items = from pair in frec
+                    orderby pair.Value descending, pair.Key
+                    select pair; //Output: 4 4 5 5 6
+
+        List<int> r = new List<int>();
+
+        foreach(var item in items)
+        {
+            for (int veces = 0; veces < item.Value; veces++)
+            {
+                r.Add(item.Key);
+            }
+        }
+
+        return r;
+    }
+}
