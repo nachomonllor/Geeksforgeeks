@@ -1,0 +1,47 @@
+https://practice.geeksforgeeks.org/problems/find-missing-and-repeating2512/1?page=2&difficulty[]=1&sortBy=submissions
+
+class Solution:
+    def findTwoElement( self,arr, n): 
+        # code here
+        dic = {}
+
+        for item in arr:
+            if item in dic:
+                dic[item] += 1
+            else:
+                dic[item] = 1
+    
+        res = []
+    
+        for k in dic:
+            if dic[k] == 2:
+                res.append(k)
+                break
+    
+        flag = False
+        for i in range(1, max(arr)):
+            if i not in dic:
+                flag = True
+                res.append(i)
+                break
+        if not flag:
+            res.append(max(arr) + 1)
+    
+        return res
+
+
+#{ 
+ # Driver Code Starts
+#Initial Template for Python 3
+
+if __name__ == '__main__': 
+
+    tc=int(input())
+    while tc > 0:
+        n=int(input())
+        arr=list(map(int, input().strip().split()))
+        ob = Solution()
+        ans=ob.findTwoElement(arr, n)
+        print(str(ans[0])+" "+str(ans[1]))
+        tc=tc-1
+# } Driver Code Ends
