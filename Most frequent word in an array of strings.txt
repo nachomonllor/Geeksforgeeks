@@ -1,0 +1,76 @@
+
+https://practice.geeksforgeeks.org/problems/most-frequent-word-in-an-array-of-strings3528/1?page=11&difficulty[]=1&sortBy=submissions
+
+//{ Driver Code Starts
+//Initial Template for C#
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace DriverCode
+{
+    class GFG
+    {
+        static void Main(string[] args)
+        {
+            int testcases;// Taking testcase as input
+            testcases = Convert.ToInt32(Console.ReadLine());
+            while (testcases-- > 0)// Looping through all testcases
+            {
+                int n = Convert.ToInt32(Console.ReadLine());
+                string[] ip = Console.ReadLine().Trim().Split(' ');
+                Solution obj = new Solution();
+                var res = obj.mostFrequentWord(ip, n);
+                Console.WriteLine(res);
+            }
+        }
+    }
+}
+// } Driver Code Ends
+
+
+//User function Template for C#
+
+class Solution
+{
+    //Function to find most frequent word in an array of strings.
+    public string mostFrequentWord(string[] arr, int n) 
+    {
+        Dictionary<string, int> dic = new Dictionary<string, int>();
+        int max_frec = 0;
+        HashSet<string> max_pal = new HashSet<string>();
+        foreach (string item in arr)
+        {
+            if (dic.ContainsKey(item))
+            {
+                dic[item]++;
+            }
+            else
+            {
+                dic[item] = 1;
+            }
+        }
+
+        foreach(KeyValuePair<string, int> pair in dic)
+        {
+            if (pair.Value > max_frec)
+            {
+                max_frec = pair.Value;
+                max_pal.Add(pair.Key);
+            }
+            else if (pair.Value == max_frec)
+            {
+
+                max_pal = new HashSet<string>();
+                max_pal.Add(pair.Key);
+            }
+        }
+
+
+        return max_pal.Last();
+    }
+}
