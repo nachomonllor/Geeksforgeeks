@@ -1,0 +1,129 @@
+
+https://practice.geeksforgeeks.org/problems/merge-k-sorted-arrays/1?page=5&difficulty[]=1&status[]=unsolved&sortBy=submissions
+
+
+//{ Driver Code Starts
+//Initial Template for C#
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DriverCode
+{
+    class GFG
+    {
+        static void Main(string[] args)
+        {
+            int testcases;// Taking testcase as input
+            testcases = Convert.ToInt32(Console.ReadLine());
+            while (testcases-- > 0)// Looping through all testcases
+            {
+                int n = Convert.ToInt32(Console.ReadLine());
+                List<List<int>> arr = new List<List<int>>();
+
+                string[] ip = Console.ReadLine().Trim().Split(' ');
+                for (int i = 0; i < n*n; i += n)
+                {
+                    List<int> row = new List<int>();
+                    for (int j = 0; j < n; j++)
+                    {
+                        row.Add(int.Parse(ip[i+j]));
+                    }
+                    arr.Add(row);
+                }
+                Solution obj = new Solution();
+                var res = obj.mergeKArrays(ref arr, n);
+                foreach (int i in res)
+                {
+                    Console.Write(i + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
+// } Driver Code Ends
+
+
+//User function Template for C#
+
+class Solution
+{
+
+
+
+    List<int> Mezclar(List<int> a, List<int> b)
+    {
+        int i = 0, j = 0;
+        List<int> lista = new List<int>();
+        while (i < a.Count && j < b.Count)
+        {
+            if (a[i] < b[j])
+            {
+                lista.Add(a[i]);
+                i++;
+            }
+            else
+            {
+                lista.Add(b[j]);
+                j++;
+            }
+        }
+
+        while (i < a.Count)
+        {
+            lista.Add(a[i]);
+            i++;
+        }
+        while (j < b.Count)
+        {
+            lista.Add(b[j]);
+            j++;
+        }
+
+        return lista;
+    }
+
+
+    //Function to merge k sorted arrays.
+    public List<int> mergeKArrays(ref List<List<int>> arr, int K)
+    {
+        List<List<int>> res = new List<List<int>>();
+
+        for (int i = 0; i + 1 < arr.Count; i += 2)
+        {
+            res.Add(Mezclar(arr[i], arr[i+1]));
+        }
+
+
+        if (arr.Count % 2 != 0)
+        {
+            res.Add(arr.Last());
+        }
+
+
+        List<List<int>> x = res.ToList();
+        while (x.Count > 1)
+        {
+            List<List<int>> aux = new List<List<int>>();
+            for (int indice_res = 0; indice_res + 1 < x.Count; indice_res +=2)
+            {
+                aux.Add(Mezclar(x[indice_res], x[indice_res + 1]));
+            }
+
+            if (x.Count % 2 != 0)
+            {
+                aux.Add(x.Last());
+            }
+
+            x = aux;
+        }
+        return x.First();
+    }
+
+
+}
