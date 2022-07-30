@@ -1,0 +1,117 @@
+
+
+https://practice.geeksforgeeks.org/problems/8a644e94faaa94968d8665ba9e0a80d1ae3e0a2d/1?page=10&difficulty[]=1&status[]=unsolved&sortBy=submissions
+
+
+//{ Driver Code Starts
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            int n = Integer.parseInt(br.readLine().trim());
+            String[] s = br.readLine().trim().split(" ");
+            int[][] Intervals = new int[n][2];
+            int j = 0;
+            for(int i = 0; i < n; i++){
+                Intervals[i][0] = Integer.parseInt(s[j]);
+                j++;
+                Intervals[i][1] = Integer.parseInt(s[j]);
+                j++;
+            }
+            Solution obj = new Solution();
+            int[][] ans = obj.overlappedInterval(Intervals);
+            for(int i = 0; i < ans.length; i++){
+                for(j = 0; j < ans[i].length; j++){
+                    System.out.print(ans[i][j] + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
+}
+
+// } Driver Code Ends
+
+
+class Solution
+{
+    
+    private static  void quicksort(int[][] vector, int primero, int ultimo)
+    {
+          int i, j, central;
+          int pivote;
+          central = (primero + ultimo) / 2;
+          pivote = vector[central][0];
+          i = primero;
+          j = ultimo;
+          do
+          {
+              while (vector[i][0] < pivote) i++;
+              while (vector[j][0] > pivote) j--;
+              if (i <= j)
+              {
+                  int[] temp = vector[i];
+                  vector[i] = vector[j];
+                  vector[j] = temp;
+                  i++;
+                  j--;
+              }
+          } while (i <= j);
+    
+          if (primero < j)
+          {
+              quicksort(vector, primero, j);
+          }
+          if (i < ultimo)
+          {
+              quicksort(vector, i, ultimo);
+          }
+    }
+    
+    
+    
+    public int[][] overlappedInterval(int[][] intervals)
+    {
+        if (intervals == null || intervals.length == 0) return intervals;
+
+          quicksort(intervals, 0, intervals.length - 1);
+
+          int i = 0;
+
+          ArrayList<int[]> res = new ArrayList<int[]>();
+
+          while (i < intervals.length)
+          {
+              int[] a = intervals[i];
+              int[] insertar = a;
+              while (i + 1 < intervals.length && intervals[i+1][0] <= a[1])
+              {
+                  //insertar = new Interval(Math.Min(a.start, intervals[i+1].start), Math.Max(a.end, intervals[i + 1].end));
+                  insertar = new int[] { Math.min(a[0], intervals[i+1][0]), Math.max(a[1], intervals[i + 1][1]) };
+                  a = insertar;
+                  i++;
+              }
+              res.add(insertar);
+              i++;
+          }
+
+          int[][] r = new int[res.size()][];
+
+          for( i = 0; i < res.size(); i++)
+          {
+              r[i] = res.get(i);
+          }
+          return r;
+    }
+    
+    
+    
+    
+}
