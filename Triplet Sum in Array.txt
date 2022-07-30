@@ -1,0 +1,114 @@
+
+https://practice.geeksforgeeks.org/problems/triplet-sum-in-array-1587115621/1?page=1&difficulty[]=1&category[]=Arrays&sortBy=submissions
+
+//{ Driver Code Starts
+//Initial Template for C#
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DriverCode
+{
+
+    class GFG
+    {
+        static void Main(string[] args)
+        {
+            int testcases;// Taking testcase as input
+            testcases = Convert.ToInt32(Console.ReadLine());
+            while (testcases-- > 0)// Looping through all testcases
+            {
+
+                var stringArray = Console.ReadLine().Split(' ');
+                int n = int.Parse(stringArray[0]);
+                int x = int.Parse(stringArray[1]);
+                int[] arr = new int[n];
+                stringArray = Console.ReadLine().Split(' ');
+                int j = 0;
+                for (int i = 0; i < stringArray.Length; i++)
+                {
+                    if (stringArray[i].CompareTo(" ") != -1)
+                    {
+                        arr[j] = int.Parse(stringArray[i]);
+
+                        j++;
+                    }
+                }
+                Solution obj = new Solution();
+                var res = obj.find3Numbers(arr, n,x);
+                Console.WriteLine(res ? 1 : 0);
+            }
+
+        }
+    }
+
+
+
+    
+// } Driver Code Ends
+//User function Template for C#
+
+    class Solution
+    {
+        //Function to find if there exists a triplet in the 
+        //array A[] which sums up to X.
+        public bool find3Numbers(int[] arr, int n,int X)
+        {
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+
+            for (int i = 0; i < n; i++)
+            {
+                if (dic.ContainsKey(arr[i]))
+                {
+                    dic[arr[i]]++;
+                }
+                else
+                {
+                    dic[arr[i]] = 1;
+                }
+            }
+
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i+1; j<n; j++)
+                {
+                    int suma = arr[i] + arr[j];
+                    if (dic.ContainsKey(X - suma))
+                    {
+                        if (arr[i] == arr[j] && arr[i] != X - suma)
+                        {
+                            if (dic[arr[i]] >=2)
+                            {
+                                return true;
+                            }
+
+                        }
+                        if (arr[i] == arr[j] && arr[i] == X  - suma)
+                        {
+                            if (dic[arr[i]] >=3)
+                            {
+                                return true;
+                            }
+                        }
+
+                        if (new int[] { arr[i], arr[j], X - suma }.Distinct().ToArray().Length == 3)
+                        {
+                            if (dic.ContainsKey(arr[i]) && dic.ContainsKey(arr[j]) && dic.ContainsKey(X - suma))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+    }
+
+}
