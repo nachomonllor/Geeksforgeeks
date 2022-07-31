@@ -1,0 +1,38 @@
+
+https://practice.geeksforgeeks.org/problems/reverse-each-word-in-a-given-string1001/1?page=11&difficulty[]=1&status[]=unsolved&sortBy=submissions
+
+class Solution:
+    def revertir(self, s):
+        i = 0
+        j = len(s) - 1
+        ch = list(s)
+    
+        while i < j:
+    
+            temp = ch[i]
+            ch[i] = ch[j]
+            ch[j] = temp
+            i+=1
+            j-=1
+        return ''.join(ch)
+    
+    def reverseWords(self, s):
+        arr = s.split('.')
+        lista = [] 
+        for i in range(0, len(arr)):
+            lista.append(self.revertir(arr[i]))
+        return '.'.join(lista)
+
+
+#{ 
+ # Driver Code Starts
+#Initial Template for Python 3
+
+if __name__ == '__main__':
+    t = int(input())
+    for _ in range(t):
+        s = input().strip()
+        ob = Solution()
+        ans = ob.reverseWords(s)
+        print(ans)
+# } Driver Code Ends
