@@ -1,0 +1,78 @@
+https://practice.geeksforgeeks.org/problems/minimum-distance-between-two-numbers/1?page=1&difficulty[]=-1&status[]=unsolved&sortBy=submissions
+
+class Solution:
+    def minDist(self, arr, n, x, y): # => Total Time Taken: 0.84
+        listaX = []
+        listaY = [] 
+    
+        flagX = False
+        flagY = False
+    
+        for i in range(0, n):
+            if arr[i] == x:
+                listaX.append(i)
+                flagX = True
+            if arr[i] == y:
+                listaY.append(i) 
+                flagY = True
+     
+        min_dif = n
+        for itemX in listaX:
+            for itemY in listaY:
+                min_dif = min(min_dif,  abs(itemX - itemY) )
+        if not flagX or not flagY:
+            return -1
+    
+        return min_dif 
+
+
+--------------------------------------------------
+
+def minDist(arr, n, x, y): # => con diccionario
+    dic = {}
+    min_dif = n 
+
+    flagX = False
+    flagY = False
+
+    for i in range(0, n):
+        if arr[i] == x:
+            if y in dic:
+                min_dif = min(min_dif, abs( i - dic[y] ))
+            dic[x] = i 
+            flagX = True
+        if arr[i] == y:
+             if x in dic:
+                min_dif = min(min_dif, abs( i - dic[x] ))
+             dic[y] = i
+             flagY = True 
+    if not flagX or not flagY:
+            return -1
+
+    return min_dif 
+
+
+-------------------------------------------------------
+
+    def minDist(self, arr, n, x, y): # => Total Time Taken: 0.77
+        dic = [-1] * (10**5 + 1)
+        min_dif = n 
+    
+        flagX = False
+        flagY = False
+    
+        for i in range(0, n):
+            if arr[i] == x:
+                if dic[y] >= 0:   # y in dic:
+                    min_dif = min(min_dif, abs( i - dic[y] ))
+                dic[x] = i 
+                flagX = True
+            if arr[i] == y:
+                 if dic[x] >= 0:  #x in dic:
+                    min_dif = min(min_dif, abs( i - dic[x] ))
+                 dic[y] = i
+                 flagY = True 
+        if not flagX or not flagY:
+                return -1
+    
+        return min_dif
