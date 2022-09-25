@@ -1,0 +1,113 @@
+https://practice.geeksforgeeks.org/problems/union-of-two-sorted-arrays-1587115621/1?page=3&difficulty[]=0&status[]=unsolved&sortBy=submissions
+
+//{ Driver Code Starts
+//Initial Template for C#
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DriverCode
+{
+
+    class GFG
+    {
+        static void Main(string[] args)
+        {
+            int testcases;// Taking testcase as input
+            testcases = Convert.ToInt32(Console.ReadLine());
+            while (testcases-- > 0)// Looping through all testcases
+            {
+                var stringArray = Console.ReadLine().Split(' ');
+                int n = int.Parse(stringArray[0]);
+                int m = int.Parse(stringArray[1]);
+                int[] arr1 = new int[n];
+                stringArray = Console.ReadLine().Split(' ');
+                int j = 0;
+                for (int i = 0; i < stringArray.Length; i++)
+                {
+                    if (stringArray[i].CompareTo(" ") != -1)
+                    {
+                        arr1[j] = int.Parse(stringArray[i]);
+
+                        j++;
+                    }
+                }
+                int[] arr2 = new int[m];
+                stringArray = Console.ReadLine().Split(' ');
+                j = 0;
+                for (int i = 0; i < stringArray.Length; i++)
+                {
+                    if (stringArray[i].CompareTo(" ") != -1)
+                    {
+                        arr2[j] = int.Parse(stringArray[i]);
+
+                        j++;
+                    }
+                }
+                Solution obj = new Solution();
+                var res = obj.findUnion(arr1,arr2,n,m);
+                foreach(int i in res){
+                    Console.Write(i+" ");
+                }
+                Console.WriteLine();
+            }
+
+        }
+    }
+
+
+
+    
+// } Driver Code Ends
+//User function Template for C#
+
+    class Solution
+    {
+        
+        
+        //arr1,arr2 : the arrays
+        // n, m: size of arrays
+        //Function to return a list containing the union of the two arrays.
+        public List<int> findUnion(int[] arr1,int[] arr2,int n, int m)
+        {
+            HashSet<int> hash = new HashSet<int>();
+            int i = 0, j = 0;
+
+            while (i < n && j < m)
+            {
+                if (arr1[i] <= arr2[j])
+                {
+                    hash.Add(arr1[i]);
+                    i++;
+                }
+                else if (arr2[j] < arr1[i])
+                {
+                    hash.Add(arr2[j]);
+                    j++;
+                }
+
+            }
+
+            while (i < n)
+            {
+                hash.Add(arr1[i]);
+                i++;
+            }
+            while (j < m)
+            {
+                hash.Add(arr2[j]);
+                j++;
+            }
+
+            return hash.ToList();
+        }
+    
+    }
+
+}
+
+//{ Driver Code Starts.
+// } Driver Code Ends
