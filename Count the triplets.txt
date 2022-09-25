@@ -1,0 +1,33 @@
+
+
+https://practice.geeksforgeeks.org/problems/count-the-triplets4615/1?page=3&difficulty[]=0&status[]=unsolved&sortBy=submissions
+
+
+#User function Template for python3
+class Solution:
+	def countTriplet(self, arr, n):
+		# code here
+		hash1 = set(arr) 
+        cont = 0
+        for i in range(0, n - 1):
+            for j in range(i + 1, n):
+                if (arr[i] + arr[j]) in hash1:
+                    cont += 1
+        return cont
+
+
+#{ 
+ # Driver Code Starts
+#Initial Template for Python 3
+
+if __name__ == '__main__':
+	T=int(input())
+	for i in range(T):
+		n = int(input())
+		arr = [int(x) for x in input().split()]
+
+		ob = Solution()
+		ans = ob.countTriplet(arr, n)
+		print(ans)
+
+# } Driver Code Ends
