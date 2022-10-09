@@ -1,0 +1,42 @@
+https://practice.geeksforgeeks.org/problems/check-if-strings-are-rotations-of-each-other-or-not-1587115620/1?page=1&status[]=unsolved&category[]=Strings&sortBy=submissions
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp8
+{
+    internal class Program
+    {
+
+        public static bool areRotations(string s1, string s2)
+        {
+            // Your code here
+            if (s1.Length != s2.Length) return false;
+
+            if (s1==s2) return true;
+
+            for (int i = 0; i < s1.Length; i++)
+            {
+                if (( s1.Substring(i) + s1.Substring(0, i)) == s2) return true;
+            }
+
+
+            return false;
+        }
+
+        static void Main(string[] args)
+        {
+            //string s1 = "me";
+            //string s2 = "mee";
+            string s1 = "aaaa";
+            string s2 = "aaa";
+
+            Console.WriteLine(areRotations(s1, s2)); //false
+            Console.ReadLine();
+        }
+    }
+}

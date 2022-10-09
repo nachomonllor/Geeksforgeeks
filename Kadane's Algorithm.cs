@@ -1,4 +1,4 @@
-﻿https://practice.geeksforgeeks.org/problems/kadanes-algorithm/0/?ref=self
+﻿//https://practice.geeksforgeeks.org/problems/kadanes-algorithm/0/?ref=self
 using System;
 using System.Collections.Generic;
 using System.Linq;
