@@ -1,0 +1,87 @@
+
+https://practice.geeksforgeeks.org/problems/reverse-a-linked-list/1?page=1&category[]=Linked%20List&sortBy=submissions
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace ConsoleApp7
+{
+    internal class Program
+    {
+        public class Node
+        {
+            public int data;
+            public Node next;
+
+            public Node(int a)
+            {
+                data = a;
+                next = null;
+            }
+        }
+
+        /* Inserts a new Node at front of the list. */
+        public static Node push(Node head, int new_data)
+        {
+            /* 1 & 2: Allocate the Node &
+                       Put in the data*/
+            Node new_node = new Node(new_data);
+
+            /* 3. Make next of new Node as head */
+            new_node.next = head;
+
+            /* 4. Move the head to point to new Node */
+            head = new_node;
+
+            return head;
+        }
+
+        public static Node reverseList(Node head)
+        {
+            Node rev = null;
+            Node iter = head;
+
+            while (iter != null)
+            {
+                rev = push(rev, iter.data);
+                iter = iter.next;
+            }
+            return rev;
+        }
+
+        static void MostrarLista(Node node)
+        {
+            while(node != null)
+            {
+                Console.Write(node.data + " ");
+                node = node.next;
+            }
+            Console.WriteLine();
+        }
+             
+
+        static void Main(string[] args)
+        {
+
+
+            Node head = new Node(1);
+            head.next = new Node(2);
+            head.next.next = new Node(3);
+            head.next.next.next = new Node(4);
+            head.next.next.next.next = new Node(5);
+            head.next.next.next.next.next = new Node(6);
+
+            MostrarLista(head);
+
+            Node  rev =  reverseList(head);
+
+            MostrarLista(rev);
+
+            Console.ReadLine();
+        }
+    }
+}
