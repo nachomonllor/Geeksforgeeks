@@ -1,0 +1,129 @@
+https://practice.geeksforgeeks.org/problems/valid-substring0624/1?page=1&status[]=unsolved&category[]=Strings&sortBy=submissions
+
+import java.util.*;
+
+class Interval
+{
+	public int start;
+	public int end;
+	public Interval() { start = 0; end = 0; }
+	public Interval(int s, int e) { start = s; end = e; }
+}
+
+public class Principal {
+
+
+
+    private static  void quicksort(List<Interval> vector, int primero, int ultimo)
+    {
+        int i, j, central;
+        int pivote;
+        central = (primero + ultimo) / 2;
+        pivote = vector.get(central).start;
+        i = primero;
+        j = ultimo;
+        do
+        {
+        	while(vector.get(i).start < pivote) i++;
+        	while(vector.get(j).start > pivote) j--;
+            
+            if (i <= j)
+            {
+                Interval temp;
+                temp = vector.get(i);
+                vector.set(i, vector.get(j));
+                vector.set(j, temp);
+                
+                i++;
+                j--;
+            }
+        } while (i <= j);
+
+        if (primero < j)
+        {
+            quicksort(vector, primero, j);
+        }
+        if (i < ultimo)
+        {
+            quicksort(vector, i, ultimo);
+        }
+    }
+
+
+    public static List<Interval> Merge(List<Interval> intervals)
+    {
+
+        if (intervals == null || intervals.size() == 0) return intervals;
+        quicksort(intervals, 0, intervals.size() - 1);
+        int i = 0;
+        List<Interval> res = new ArrayList<Interval>();
+
+        while (i < intervals.size())
+        {
+        	Interval a = intervals.get(i);
+            Interval insertar = a;
+            while(i + 1 < intervals.size() && intervals.get(i+1).start <= a.end + 1)
+            {
+                insertar = new Interval(Math.min(a.start, intervals.get(i+1).start), Math.max(a.end, intervals.get(i+1).end));
+                a = insertar;
+                i++;
+            }
+            res.add(insertar);
+            i++;
+        }
+
+        return res;
+    }
+
+    static int findMaxLen(String S)
+    {
+
+        Stack<Integer> pilaIndices = new Stack<Integer>();
+        List<Interval> intervals = new ArrayList<Interval>();
+
+
+        for (int i = 0; i < S.length(); i++)
+        {
+            if (S.charAt(i) == '(')
+            {
+                pilaIndices.push(i);
+            }
+            else
+            {
+                if (pilaIndices.size() == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    int ini = pilaIndices.pop();
+                        intervals.add(new Interval(ini, i));
+                }
+            }
+
+        }
+        
+        List<Interval> mezclados = Merge(intervals);
+        int max = 0;
+        
+        for(int i = 0; i < mezclados.size(); i++) {
+        	Interval mez = mezclados.get(i);
+        	max = Math.max(max, mez.end - mez.start + 1);
+        }
+
+        return max;
+
+    }
+
+	
+	
+	public static void main(String[] args) {
+
+		//String S = ")(";
+		//String S = "";
+		String S = "()()()()(((((((((((()";
+		System.out.println(	findMaxLen( S));
+
+	}
+
+}
