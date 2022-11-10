@@ -1,0 +1,68 @@
+
+https://leetcode.com/problems/longest-palindromic-substring/
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Security.AccessControl;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp26
+{
+    internal class Program
+    {
+
+        static void ExpandirRango(int ini, int fin, ref int start, ref int len, string s)
+        {
+            while (ini >= 0 && fin < s.Length && s[ini] == s[fin])
+            {
+                ini--;
+                fin++;
+            }
+            if (fin - ini - 1 > len)
+            {
+                start = ini+1;
+                len = fin - ini- 1;
+            }
+        }
+
+
+        public static string LongestPalindrome(string s)
+        {
+
+            if (s.Length < 2)
+            {
+                return s;
+            }
+
+            int start = 0;
+            int len = 0;
+
+            for (int ini = 0; ini < s.Length - 1; ini++)
+            {
+                ExpandirRango(ini, ini, ref start, ref len, s);
+                ExpandirRango(ini, ini+1, ref start, ref len, s);
+            }
+
+            return s.Substring(start, len);
+        }
+
+        static void Main(string[] args)
+        {
+
+            //string s = "abcdeeeeekff";
+            //Console.WriteLine(ExtraerRango( 6, s));
+            //string s = "babad";
+            //string s = "cbbd";
+            //string s = "aaaa";
+            //string s = "cbbd"; //bb
+            string s = "babad"; //bab
+
+            Console.WriteLine(LongestPalindrome(s));
+
+            Console.ReadLine();
+        }
+    }
+}
