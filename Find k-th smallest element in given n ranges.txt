@@ -1,0 +1,315 @@
+
+https://practice.geeksforgeeks.org/problems/find-k-th-smallest-element-in-given-n-ranges/1?page=1&difficulty[]=1&status[]=unsolved&category[]=Searching&sortBy=submissions
+
+
+///----------------------MI SOLUCION-------------------
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <set>
+#include <algorithm>
+
+using namespace std;
+
+
+vector<int> kthSmallestNum(vector<vector<int>>& range, vector<int>queries) {
+    //Write your code here
+    //vector<int> vec;
+    set<int> hash;
+
+    for (vector<int> item : range) {
+        for (int i = item[0]; i <= item[1]; i++) {
+            hash.insert(i);
+        }
+    }
+
+    vector<int> v;
+
+    for (std::set<int>::iterator it = hash.begin(); it != hash.end(); it++) {
+        v.push_back(*it);
+    }
+
+    std::sort(v.begin(), v.end());
+
+
+    vector<int> ans;
+
+    for (int i = 0; i < queries.size(); i++) {
+        if (queries[i] - 1 >= 0 && queries[i] - 1 < v.size()) {
+            ans.push_back(v[queries[i] - 1]);
+        }
+        else {
+            ans.push_back(-1);
+        }
+    }
+
+    return ans;
+
+}
+
+int main()
+{
+    int range[2][2] = {
+        {1, 4},
+        {6, 8}
+    };
+
+    int queries[] = { 2, 6, 10 };
+
+    vector<vector<int>> matriz;
+
+
+    for (int i = 0; i < 2; i++) {
+        vector<int> fila;
+        for (int j = 0; j < 2; j++) {
+            fila.push_back(range[i][j]);
+        }
+        matriz.push_back(fila);
+    }
+
+    vector<int> q;
+    for (int i = 0; i < 3; i++) {
+        q.push_back(queries[i]);
+    }
+
+    vector<int> res = kthSmallestNum(matriz, q);
+
+    for (int i = 0; i < res.size(); i++) {
+        cout << res[i] << " ";
+    }
+
+
+    return 0;
+}
+
+
+//-----------------SOLUCION EDITORIAL GEEKSFORGEEKS ------------------
+
+
+------------------Time Complexity : O(nlog(n) + qlog(n))
+			Auxiliary Space: O(n)
+
+//#include <bits/stdc++.h>
+#include <iostream>
+#include <stdio.h>
+#include <algorithm>
+#include <vector>
+#include <set>
+
+
+using namespace std;
+
+vector<vector<int>> mergeIntervals(vector<vector<int>>& range) {
+    int n = range.size();
+    vector<vector<int>>fin;
+    for (int i = 0; i < n - 1; i++) {
+        if (range[i][1] >= range[i + 1][0]) {
+            range[i + 1][0] = min(range[i][0], range[i + 1][0]);
+            range[i + 1][1] = max(range[i][1], range[i + 1][1]);
+        }
+        else {
+            fin.push_back(range[i]);
+        }
+    }
+    fin.push_back(range[n - 1]);
+    return fin;
+}
+
+vector<int>kthSmallestNum(vector<vector<int>>& range, vector<int>queries) {
+
+    //sort the ranges
+    sort(range.begin(), range.end());
+
+    //merge the overlapping intervals 
+    vector<vector<int>>merged = mergeIntervals(range);
+
+    //set to store the cumulative sum of number of elements in each range
+    //eg {1 4} {6 8} {9 10} would store {4 7 9} in set.
+    set<int>s;
+    int cumsum = 0;
+    for (auto cur_range : merged) {
+        int num_ele = cur_range[1] - cur_range[0] + 1;
+        cumsum += num_ele;
+        s.insert(cumsum);
+    }
+
+    //final vector to store the result of each query
+    vector<int>fin;
+
+    //for each query get the lower bound of required kth smallest element.
+    // go to the index returned by lower_bound and get the required element
+    for (auto q : queries) {
+        auto it = s.lower_bound(q);
+        if (it == s.end())fin.push_back(-1);
+
+        //if the required element is in first range
+        else if (it == s.begin()) {
+            fin.push_back(merged[0][0] + q - 1);
+        }
+
+        //if the required element is in ith range. then discard previous range elements
+        // if previous elements are prevele. then look for k=q-prevele in the current range
+        else {
+            int prevele = *prev(it);
+            int kth = q - prevele;
+            int idx = distance(s.begin(), it);
+            fin.push_back(merged[idx][0] + kth - 1);
+        }
+
+    }
+
+    return fin;
+}
+
+
+// Driver\'s Function
+int main()
+{
+    vector<vector<int>>range = { {1, 4}, {6, 8} };
+    int n = range.size();
+    vector<int>queries = { 2, 6, 10 };
+    int q = queries.size();
+
+    vector<int>ans = kthSmallestNum(range, queries);
+    for (auto it : ans)
+        cout << it << " ";
+    return 0;
+}
+
+
+
+--------------------------O(nlog(n) + qn) -----------------
+
+Time Complexity : O(nlog(n) + qn) 
+ Auxiliary Space: O(n)
+
+
+// C# implementation to solve k queries
+// for given n ranges
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class GFG
+{
+
+    // Structure to store the
+    // start and end point
+    public class Interval
+    {
+        public int s;
+        public int e;
+
+        public Interval(int a, int b)
+        {
+            s = a;
+            e = b;
+        }
+    };
+
+    class sortHelper : IComparer
+    {
+        int IComparer.Compare(object a, object b)
+        {
+            Interval first = (Interval)a;
+            Interval second = (Interval)b;
+            return first.s - second.s;
+        }
+    }
+
+    // Function to find Kth smallest number in 
+    // a Vector of merged intervals
+    static int kthSmallestNum(ArrayList merged, int k)
+    {
+        int n = merged.Count;
+
+        // Traverse merged.get( )o find
+        // Kth smallest element using Linear search.
+        for (int j = 0; j < n; j++)
+        {
+            if (k <= Math.Abs(((Interval)merged[j]).e -
+                              ((Interval)merged[j]).s + 1))
+                return (((Interval)merged[j]).s + k - 1);
+
+            k = k - Math.Abs(((Interval)merged[j]).e -
+                             ((Interval)merged[j]).s + 1);
+        }
+
+        if (k != 0)
+            return -1;
+
+        return 0;
+    }
+
+    // To combined both type of ranges,
+    // overlapping as well as non-overlapping.
+    static ArrayList mergeIntervals(ArrayList merged, Interval[] arr, int n)
+    {
+
+        // Sorting intervals according to start
+        // time
+        Array.Sort(arr, new sortHelper());
+
+        // Merging all intervals into merged
+        merged.Add((Interval)arr[0]);
+
+        for (int i = 1; i < n; i++)
+        {
+
+            // To check if starting point of next
+            // range is lying between the previous
+            // range and ending point of next range
+            // is greater than the Ending point
+            // of previous range then update ending
+            // point of previous range by ending
+            // point of next range.
+            Interval prev = (Interval)merged[merged.Count - 1];
+            Interval curr = arr[i];
+
+            if ((curr.s >= prev.s && curr.s <= prev.e) &&
+                (curr.e > prev.e))
+            {
+                ((Interval)merged[merged.Count - 1]).e = ((Interval)curr).e;
+            }
+            else
+            {
+
+                // If starting point of next range
+                // is greater than the ending point
+                // of previous range then store next range
+                // in merged.get(.) if (curr.s > prev.e)
+                merged.Add(curr);
+            }
+        }
+        return merged;
+    }
+
+    // Driver code
+    public static void Main(string[] args)
+    {
+        Interval[] arr = { new Interval(2, 6),
+                       new Interval(4, 7) };
+        int n = arr.Length;
+        int[] query = { 5, 8 };
+        int q = query.Length;
+
+        // Merge all intervals into merged.get()) 
+        ArrayList merged = new ArrayList();
+
+        merged = mergeIntervals(merged, arr, n);
+
+        // Processing all queries on merged
+        // intervals
+        for (int i = 0; i < q; i++)
+            Console.WriteLine(kthSmallestNum(
+                merged, query[i]));
+    }
+}
+
+
+
+
+
