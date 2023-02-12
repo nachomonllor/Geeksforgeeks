@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "trappingWater", "trappingWater.csproj", "{BACAB954-AC04-4BA5-848B-16D638E22A7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextElementWithGreaterFrequency", "..\NextElementWithGreaterFrequency\NextElementWithGreaterFrequency.csproj", "{2B7A6648-5919-4553-A158-AEE3BC986815}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BACAB954-AC04-4BA5-848B-16D638E22A7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BACAB954-AC04-4BA5-848B-16D638E22A7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BACAB954-AC04-4BA5-848B-16D638E22A7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B7A6648-5919-4553-A158-AEE3BC986815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7A6648-5919-4553-A158-AEE3BC986815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B7A6648-5919-4553-A158-AEE3BC986815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B7A6648-5919-4553-A158-AEE3BC986815}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
